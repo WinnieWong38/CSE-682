@@ -14,3 +14,14 @@ CREATE TABLE Expense
     FOREIGN KEY (Category)
       REFERENCES Category (CategoryID)
 );
+
+DROP TABLE IF EXISTS CategoryLimit CASCADE;
+CREATE TABLE CategoryLimit
+(
+	limitID int,
+    categoryLimit double precision,
+    category int,
+	PRIMARY KEY(limitID),
+    FOREIGN KEY (category)
+      REFERENCES category (categoryid)
+);
