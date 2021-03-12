@@ -25,9 +25,29 @@ public class ExpenseService implements IExpenseService{
         return expenseRepository.findAll();
     }
 	
+	@Override
+	public Expense getExpenseById(Long id) {
+		return expenseRepository.getExpenseById(id);
+	}
+	
 	@Override 
 	public Expense save(Expense expense) {
 		return expenseRepository.save(expense);
+	}
+	
+	@Override
+	public Expense edit(Expense newExpense, Long id) {
+		Expense expense = expenseRepository.getExpenseById(id);
+		expense.setCategory(newExpense.getCategory());
+		expense.setCost(newExpense.getCost());
+		expense.setExpense(newExpense.getExpense());
+		expense.setExpenseid(newExpense.getExpenseid());
+		return expenseRepository.save(expense);
+	}
+	
+	@Override 
+	public void deleteById(Long id) {
+		expenseRepository.deleteById(id);
 	}
 	
 	@Override

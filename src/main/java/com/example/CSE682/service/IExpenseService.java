@@ -9,9 +9,16 @@ public interface IExpenseService {
 	
 	List<Expense> getAll();
 	
+	Expense getExpenseById(Long id);
+	
 	Expense save(Expense expense);
+
+	void deleteById(Long id);
 	
 	double getTotalCost();
 	
 	double getTotalCostByCategory(Long id);
+	
+	Expense edit(Expense newExpense, Long id);
+	
 }

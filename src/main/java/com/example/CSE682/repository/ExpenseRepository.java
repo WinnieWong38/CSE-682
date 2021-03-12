@@ -16,6 +16,9 @@ public interface ExpenseRepository extends CrudRepository<Expense, Long>{
 
 	List<Expense> findAll();
 	
+	@Query("select 1 from Expense e where e.expenseid = :id")
+	Expense getExpenseById(@Param("id") Long id);
+	
 	@Query("select SUM(e.cost) from Expense e")
 	double getTotalCost();
 	
