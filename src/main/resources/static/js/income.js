@@ -155,13 +155,17 @@ $(document).ready(function() {
     		dataType: "json",
 			data: JSON.stringify(saveObj)
 		});
-		table.row.add([
+		//table redraw
+				table.redraw();
+	/*	table.row.add([
 					saveObj.description,					
 					saveObj.income
 				]).draw( false );
 				$('#desctiption').val('');
 				$('#income').val('');
+		*/		
 	});
+	
 	} );
 	
 	
