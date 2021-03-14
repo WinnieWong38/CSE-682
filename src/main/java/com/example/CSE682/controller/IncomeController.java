@@ -21,33 +21,68 @@ public class IncomeController {
 	@Autowired
 	IIncomeService incomeService;
 	
+	@GetMapping("/getIncome")
+    public Income getIncomeById(Long id) {
+		return incomeService.getIncomeById(id);
+    }
 	@GetMapping("/getIncomes")
     public List<Income> getIncomes() {
-		return incomeService.getAll();
+		return incomeService.getAllIncomes();
     }
+
 	
 	@PostMapping("/addIncome")
 	public Income addIncome(@RequestBody Income income){
 		return incomeService.save(income);
 	}
-	
+
+	@PostMapping("/editIncome")
+	public Income editIncome(@RequestBody Income income){
+		return incomeService.save(income);
+	}
+
 	//PutMapping - for edit
-	
+
 	//DeleteMapping - for delete
 	@DeleteMapping("/deleteVal/{id}")
-	  void deleteLimit(@PathVariable Long id) {
+	void deleteIncome(@PathVariable Long id) {
 		incomeService.delete(id);
-	  }
+	}
 	
+	@GetMapping("/getAllIncomes")
+    public List<Income> getAllIncomes() {
+		return incomeService.getAllIncomes();
+    }
 	
 	@GetMapping("/getTotalIncome")
     public double getTotalIncome() {
-		return incomeService.getTotalIncome();
+		double total=0;
+		List<Income> listOfIncomes = this.getAllIncomes();
+		for (Income income: listOfIncomes ) {
+			total += Double.parseDouble(income.getIncome());
+		}
+		
+		
+		return total;
     }
-	
+
+<<<<<<< HEAD
+   
+=======
 	@GetMapping("/getIdByVal")
 	public Long GetIdByVal(@PathVariable String desc, @PathVariable double income)
 	{
 		return incomeService.GetIdByVal(desc, income);
+		
 	}
+>>>>>>> f0d6127454333db5ef5dcfcf42318a68d51d03be
+
 }
+	
+
+	
+	
+    
+	
+
+
