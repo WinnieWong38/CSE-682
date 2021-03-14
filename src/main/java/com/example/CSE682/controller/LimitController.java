@@ -50,7 +50,10 @@ public class LimitController {
 		 limitService.delete(id);
 	  }
 	 
-	 
+	//   @GetMapping("/getLimitAndCategoriesAndExpenses")
+	//   public ArrayList<ArrayList> getLimitAndCategoriesAndExpenses() {
+	// 	  return limitService.limitBarChar();
+	//   }
 	 
 	 
 }

@@ -16,4 +16,6 @@ public interface ILimitService {
 	
 	Limit getLimitById(Long id);
 
+	//ArrayList<ArrayList> limitBarChar();
+
 }

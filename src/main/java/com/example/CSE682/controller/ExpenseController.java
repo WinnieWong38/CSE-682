@@ -38,7 +38,7 @@ public class ExpenseController {
 	}
 	
 	//PutMapping - for edit
-	@PutMapping("/editLimit")
+	@PutMapping("/editExpense/{id}")
 	public Expense editExpense(@RequestBody Expense newExpense, @PathVariable Long id) {
 	    return expenseService.edit(newExpense, id);
 	}

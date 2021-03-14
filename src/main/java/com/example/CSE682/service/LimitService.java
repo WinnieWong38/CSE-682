@@ -8,11 +8,16 @@ import org.springframework.stereotype.Service;
 import com.example.CSE682.repository.LimitRepository;
 import com.example.CSE682.model.Limit;
 
+import com.example.CSE682.service.IExpenseService;
+
 @Service
 public class LimitService implements ILimitService{
 	
 	@Autowired
 	LimitRepository limitRepository;
+
+	@Autowired
+	IExpenseService expenseService;
 	
 	@Override
 	public List<Limit> getAll(){
@@ -44,5 +49,19 @@ public class LimitService implements ILimitService{
 		limitRepository.deleteById(id);
 
 	}
+
+	// @Override
+	// public ArrayList<ArrayList> limitBarChar(){
+	// 	ArrayList<Double> returnList = ArrayList<>();
+	// 	ArrayList<Double> expenses = ArrayList<>();
+	// 	ArrayList<Double> limits = ArrayList<>();
+	// 	for(Limit limit : getAll()){
+	// 		limits.add(limit.getLimit());
+	// 		expenses.add(expenseService.getTotalCostByCategory(limit.getCategory().getCategoryId));
+	// 	}
+	// 	returnList.add(limits);
+	// 	returnList.add(expenses);
+	// 	return returnList;
+	// }
 }
 

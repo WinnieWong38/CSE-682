@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/lib/fontawesome-all.css">
     <link rel="stylesheet" href="css/lib/c3.css">
+    <link rel="stylesheet" href="css/modal.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
     <title>Budget App</title>
 </head>
@@ -435,6 +436,7 @@
 											<table id="example" class="display" style="width:100%">
 												<thead>
 													<tr>
+                                                        <th>id</th>
 														<th>Item</th>
 														<th>Category</th>
 														<th>Price</th>
@@ -474,11 +476,37 @@
     <!-- ============================================================== -->
     <!-- end main wrapper  -->
     <!-- ============================================================== -->
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div>
+        <div class="form-group">
+            <label>Item: </label>
+            <input type="text" id="itemModal"></input>
+            </div>
+            <div class="form-group">
+            <label>Category: </label>
+            <select type="text" id="categoryModal"></select>
+            </div>
+            <div class="form-group">
+            <label>Price: </label>
+            <input type="number" min="0" id="priceModal"></input>
+            </div>
+            <button type="button" id="submitModal">Submit</button>
+            <button type="button" id="deleteModal">Delete</button>
+        </div>
+    </div>
+  
+  </div>
     <script src="js/lib/vue.js"></script>
     <script src="js/lib/jquery-3.3.1.min.js"></script>
     <script src="js/lib/c3.min.js"></script>
     <script src="js/lib/d3-5.4.0.min.js"></script>
     <script src="js/lib/C3chartjs.js"></script>
+    <script src="js/model.js"></script>
     <script src="js/expense.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 </body>

@@ -1,95 +1,66 @@
-
-
-/*
-new Vue({
-	el: '#app',
-	data(){
-	return {
-		items: []
-	}
-	},
-	created(){
-		fetch(url)
-			.then(response => {
-				return response.json();
-			})
-			.then(items => {
-				this.items = items;
-			})
-	}
-});
-*/
+var table;
+var chart;
 
 $(document).ready(function() {
+	init();
+});
+
+function init(){
+	createForm("category");
+	createChart();
+	createTable();
+	enableListeners();
+}
+
+
+function createChart(){
+
 	var categoryArr = [];
 	$.ajax({
 			url: "/api/category/getCategories"
-		}).done(function(data){
-		console.error(data);
-			for(let item in data){
-			console.error(data[item]);
-				$.ajax({
-					url: "/api/expense/getTotalCostByCategory/" + data[item].categoryid,
-					async: false
-				}).done(function(total){
-				console.error(total);
-					categoryArr.push([ data[item].category, total]);
-					if(data.length === categoryArr.length){
-					console.error(data, categoryArr);
-				var chart = c3.generate({
-        bindto: "#c3chart_category",
-        data: {
-            columns: categoryArr,
-            type: 'donut',
-
-            onclick: function(d, i) { console.log("onclick", d, i); },
-            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function(d, i) { console.log("onmouseout", d, i); },
-
-            colors: {
-                Men: '#5969ff',
-                Women: '#ff407b',
-                Accessories: '#25d5f2',
-                Children: '#ffc750',
-                Apperal: '#2ec551',
-
-
-
-            }
-        },
-        donut: {
-            label: {
-                show: false
-            }
-        },
-
-
-
-    
-    });
+	}).done(function(data){
+		for(let item in data){
+			$.ajax({
+				url: "/api/expense/getTotalCostByCategory/" + data[item].categoryid,
+				async: false
+			}).done(function(total){
+				categoryArr.push([ data[item].category, total]);
+				if(data.length === categoryArr.length){
+				chart = c3.generate({
+        			bindto: "#c3chart_category",
+        			data: {
+            			columns: categoryArr,
+            			type: 'donut',
+            		},
+        			donut: {
+            			label: {
+                			show: false
+            			}
+        			}
+    			});
 				};
 			});
-			}
+		}
 		});
     
-    });
+    }
 	
-	$(document).ready(function() {
-		
-		$.ajax({
+	function createForm(element){
+		$('#' + element).empty();
+		return $.ajax({
 			url: "/api/category/getCategories"
 		}).done(function(data){
 			for(let item in data){
-				var x = document.getElementById("category");
+				var x = document.getElementById(element);
 				var option = document.createElement("option");
 				option.value = data[item].categoryid;
 				option.text = data[item].category;
 				x.add(option);
 			}
 		});
-		 
+	}
 		
-		
+	function createTable(){	
 		$('#example thead tr').clone(true).appendTo( '#example thead' );
 		$('#example thead tr:eq(1) th').each( function (i) {
         var title = $(this).text();
@@ -105,45 +76,112 @@ $(document).ready(function() {
         } );
 		} );
 		
-		var table = $('#example').DataTable({
-			
+		table = $('#example').DataTable({
+			"columnDefs": [
+				{
+					"targets": [ 0 ],
+					"visible": false,
+					"searchable": false
+				}
+			]
 		});
+
+		$('#example tbody').on('click', 'tr', function () {
+			createModal(table.row( this ).data(), $(this));
+		} );
 		
 		$.ajax({
 			url: "/api/expense/getExpenses"
 		}).done(function(data){
-			console.error('data', data);
 			for(let item in data){
 				table.row.add([
+					data[item].expenseid,
 					data[item].expense,
 					data[item].category.category,
 					data[item].cost
 				]).draw( false );
 			}
 		});
+	}
 		
-		$('#submit').off('click').on('click', function(){
-		var saveObj = {};
-		saveObj.expense = $('#item').val();
-		saveObj.category = {'categoryid' : parseInt($('#category option:selected').val()), 'category': $('#category option:selected').text()};
-		saveObj.cost = parseInt($('#price').val());
-		console.log(saveObj);
-		$.ajax({
-			url: "/api/expense/addExpense",
-			method: "POST",
-			contentType: "application/json",
-    		dataType: "json",
-			data: JSON.stringify(saveObj)
-		});
-		table.row.add([
-					saveObj.expense,
-					saveObj.category.category,
-					saveObj.cost
-				]).draw( false );
-				$('#item').val('');
-				$('#price').val('');
-	});
-	} );
-	
-	
-	
+		function enableListeners(){
+			//Add new expense
+			$('#submit').off('click').on('click', function(){
+				var expense = createExpense($('#item').val(), createCategory($('#category option:selected').val(), $('#category option:selected').text()), $('#price').val());
+				$.ajax({
+					url: "/api/expense/addExpense",
+					method: "POST",
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify(expense)
+				}).done(function(expense){
+					table.row.add([
+						expense.expense,
+						expense.category.category,
+						expense.cost
+					]).draw( false );
+					createChart();
+				});
+			
+			});
+		}
+
+		function createModal(data, row){
+			// Get the modal
+			var modal = document.getElementById("myModal");
+
+			modal.style.display = "block";
+			$.when(createForm("categoryModal")).done(function(){
+				$('#itemModal').val(data[1]);
+				$('#categoryModal option:contains('+data[2]+')').attr('selected', 'selected')
+				$('#priceModal').val(data[3]);
+			});
+
+			$('#submitModal').off('click').on('click', function(){
+				var expense = createExpense($('#itemModal').val(), createCategory($('#categoryModal option:selected').val(), $('#categoryModal option:selected').text()), $('#priceModal').val());
+				$.ajax({
+					url: "/api/expense/editExpense/" + data[0],
+					method: "PUT",
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify(expense)
+				}).done(function(expense){
+					table.row( row ).remove().draw();
+					table.row.add([
+						expense.expenseid,
+						expense.expense,
+						expense.category.category,
+						expense.cost
+					]).draw( false );
+					createChart();
+					modal.style.display = "none";
+				});
+			});
+
+			$('#deleteModal').off('click').on('click', function(){
+				$.ajax({
+					url: "/api/expense/deleteExpense/" + data[0],
+					method: "DELETE",
+					contentType: "application/json",
+					dataType: "json"
+				})
+					table.row( row ).remove().draw();
+					createChart();
+					modal.style.display = "none";
+			});
+			
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+			}
+		}
