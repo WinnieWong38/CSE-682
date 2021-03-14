@@ -1,6 +1,7 @@
 package com.example.CSE682.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,7 +30,8 @@ public interface IncomeRepository extends CrudRepository<Income, Long>{
 	
 	void deleteById(Long id);
 	
-	List<Income> findAll();
+	//List<Income> findAll();
+	List<Income> getAll();
 	
 	
 	Optional<Income> findById(Long id);
