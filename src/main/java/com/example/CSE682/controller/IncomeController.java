@@ -35,9 +35,14 @@ public class IncomeController {
 	public Income addIncome(@RequestBody Income income){
 		return incomeService.save(income);
 	}
-	
+
+	@PostMapping("/editIncome")
+	public Income editIncome(@RequestBody Income income){
+		return incomeService.save(income);
+	}
+
 	//PutMapping - for edit
-	
+
 	//DeleteMapping - for delete
 	@DeleteMapping("/deleteVal/{id}")
 	  void deleteIncome(@PathVariable Long id) {
