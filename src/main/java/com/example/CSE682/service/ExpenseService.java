@@ -41,8 +41,8 @@ public class ExpenseService implements IExpenseService{
 		expense.setCategory(newExpense.getCategory());
 		expense.setCost(newExpense.getCost());
 		expense.setExpense(newExpense.getExpense());
-		expense.setExpenseid(newExpense.getExpenseid());
-		return expenseRepository.save(expense);
+		//expense.setExpenseid(newExpense.getExpenseid());
+		return expenseRepository.saveAndFlush(expense);
 	}
 	
 	@Override 

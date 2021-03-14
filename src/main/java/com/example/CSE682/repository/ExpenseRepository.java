@@ -16,7 +16,7 @@ public interface ExpenseRepository extends CrudRepository<Expense, Long>{
 
 	List<Expense> findAll();
 	
-	@Query("select 1 from Expense e where e.expenseid = :id")
+	@Query("select e from Expense e where e.expenseid = :id")
 	Expense getExpenseById(@Param("id") Long id);
 	
 	@Query("select SUM(e.cost) from Expense e")
@@ -24,5 +24,7 @@ public interface ExpenseRepository extends CrudRepository<Expense, Long>{
 	
 	@Query("select SUM(e.cost) from Expense e where e.category = :category")
 	double getTotalCostByCategory(@Param("category") Optional<Category> category);
+
+	Expense saveAndFlush(Expense expense);
 	
 }
