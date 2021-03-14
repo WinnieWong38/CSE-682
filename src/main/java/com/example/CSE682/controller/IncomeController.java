@@ -45,14 +45,15 @@ public class IncomeController {
 
 	//DeleteMapping - for delete
 	@DeleteMapping("/deleteVal/{id}")
-	  void deleteIncome(@PathVariable Long id) {
+	void deleteIncome(@PathVariable Long id) {
 		incomeService.delete(id);
-	  }
+	}
 	
 	@GetMapping("/getAllIncomes")
     public List<Income> getAllIncomes() {
 		return incomeService.getAllIncomes();
     }
+	
 	@GetMapping("/getTotalIncome")
     public double getTotalIncome() {
 		double total=0;
@@ -64,14 +65,15 @@ public class IncomeController {
 		
 		return total;
     }
-/*	@GetMapping("/getIdByVal")
+
+	@GetMapping("/getIdByVal")
 	public Long GetIdByVal(@PathVariable String desc, @PathVariable double income)
 	{
 		return incomeService.GetIdByVal(desc, income);
 		
 	}
-*/
-    }
+
+}
 	
 
 	

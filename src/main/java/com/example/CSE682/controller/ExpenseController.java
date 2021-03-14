@@ -37,13 +37,11 @@ public class ExpenseController {
 		return expenseService.save(expense);
 	}
 	
-	//PutMapping - for edit
 	@PutMapping("/editLimit")
 	public Expense editExpense(@RequestBody Expense newExpense, @PathVariable Long id) {
 	    return expenseService.edit(newExpense, id);
 	}
 	
-	//DeleteMapping - for delete
 	@DeleteMapping("/deleteExpense/{id}")
 	public void deleteExpense(@PathVariable Long id){
 		expenseService.deleteById(id);
