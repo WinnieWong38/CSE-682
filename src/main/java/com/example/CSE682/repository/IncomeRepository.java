@@ -25,8 +25,8 @@ public interface IncomeRepository extends CrudRepository<Income, Long>{
 	void deleteByValues(@Param("description") String description);
 	*/
 	
-	@Query("select I from Income I where I.description = :description and I.income = :income")
-	Long getIdByVal(String description,double income);
+	@Query("select I from Income I where I.income = :income and I.cost = :cost")
+	Long getIdByVal(String income, double cost);
 	
 	void deleteById(Long id);
 	

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.CSE682.service.ICategoryService;
 import com.example.CSE682.model.Category;
-import com.example.CSE682.model.Expense;
 
 @RestController
 @RequestMapping("/api/category")
