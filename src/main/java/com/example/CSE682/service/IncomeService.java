@@ -24,6 +24,16 @@ public class IncomeService implements IIncomeService{
 		return incomeRepository.getIncomeById(id);
 	}
 	
+	@Override
+	public double getTotalIncome() {
+		return incomeRepository.getTotalIncome();
+	}
+	
+	@Override
+	public Long GetIdByVal(String desc, double income)
+	{
+		return incomeRepository.getIdByVal(desc, income);	
+	}
 	
 	@Override 
 	public Income save(Income income) {

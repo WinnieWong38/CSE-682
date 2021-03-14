@@ -7,6 +7,10 @@ import com.example.CSE682.model.Income;
 public interface IIncomeService {
 	
 
+	double getTotalIncome();
+	
+	Long GetIdByVal(String desc, double income);
+	
 	Income save(Income income);
 	
 	Income edit(Income newIncome, Long id);

@@ -8,6 +8,12 @@ public interface ICategoryService {
 	
 	List<Category> getAll();
 	
+	Category getCategoryById(Long id);
+	
 	Category save(Category category);
+	
+	void deleteById(Long id);
+	
+	Category edit(Category newCategory, Long id);
 
 }
