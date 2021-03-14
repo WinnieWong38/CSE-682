@@ -46,6 +46,10 @@ public class Income {
 	public String getIncome() {
 		return income;
 	}
+	public void editIncome(String income) {
+		this.income = income;
+	}
+
 
 	public void setIncome(String income) {
 		this.income = income;
