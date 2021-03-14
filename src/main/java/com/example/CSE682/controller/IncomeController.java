@@ -56,13 +56,21 @@ public class IncomeController {
 	
 	@GetMapping("/getTotalIncome")
     public double getTotalIncome() {
-		return incomeService.getTotalIncome();
+		double total=0;
+		List<Income> listOfIncomes = this.getAllIncomes();
+		for (Income income: listOfIncomes ) {
+			total += Double.parseDouble(income.getIncome());
+		}
+		
+		
+		return total;
     }
-	
+
 	@GetMapping("/getIdByVal")
 	public Long GetIdByVal(@PathVariable String desc, @PathVariable double income)
 	{
 		return incomeService.GetIdByVal(desc, income);
+		
 	}
 
 }
