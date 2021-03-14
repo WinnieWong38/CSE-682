@@ -66,12 +66,16 @@ public class IncomeController {
 		return total;
     }
 
+<<<<<<< HEAD
+   
+=======
 	@GetMapping("/getIdByVal")
 	public Long GetIdByVal(@PathVariable String desc, @PathVariable double income)
 	{
 		return incomeService.GetIdByVal(desc, income);
 		
 	}
+>>>>>>> f0d6127454333db5ef5dcfcf42318a68d51d03be
 
 }
 	

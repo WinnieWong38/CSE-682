@@ -19,7 +19,7 @@ public interface IncomeRepository extends CrudRepository<Income, Long>{
 	@Query("select SUM(e.income) from Income e")
 	double getTotalIncome();	
 	
-	//@Delete("se")
+	//@Delete("see")
 /*	@Modifying
 	@Query(value = "DELETE FROM Income i where i.description = :description")
 	void deleteByValues(@Param("description") String description);
@@ -30,8 +30,15 @@ public interface IncomeRepository extends CrudRepository<Income, Long>{
 	
 	void deleteById(Long id);
 	
+<<<<<<< HEAD
+
+	// List<Income> getAll();
+	
+	
+=======
 	List<Income> getAll();
 	
+>>>>>>> f0d6127454333db5ef5dcfcf42318a68d51d03be
 	Optional<Income> findById(Long id);
 	@Query("select i from Income i where i.incomeid = :id")
 	Income getIncomeById(@Param("id") Long id);
