@@ -28,4 +28,13 @@ public interface IncomeRepository extends CrudRepository<Income, Long>{
 	Long getIdByVal(String description,double income);
 	
 	void deleteById(Long id);
+	
+	List<Income> findAll();
+	
+	
+	Optional<Income> findById(Long id);
+		
+	@Query("select i from Income i where i.incomeid = :id")
+	Income getIncomeById(@Param("id") Long id);
+	
 }
