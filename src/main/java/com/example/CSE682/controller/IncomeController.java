@@ -66,6 +66,7 @@ public class IncomeController {
 		return total;
     }
 
+<<<<<<< HEAD
    
 =======
 	@GetMapping("/getIdByVal")
