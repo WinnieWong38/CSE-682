@@ -21,10 +21,15 @@ public class IncomeController {
 	@Autowired
 	IIncomeService incomeService;
 	
+	@GetMapping("/getIncome")
+    public Income getIncomeById(Long id) {
+		return incomeService.getIncomeById(id);
+    }
 	@GetMapping("/getIncomes")
     public List<Income> getIncomes() {
 		return incomeService.getAll();
     }
+
 	
 	@PostMapping("/addIncome")
 	public Income addIncome(@RequestBody Income income){
@@ -35,19 +40,30 @@ public class IncomeController {
 	
 	//DeleteMapping - for delete
 	@DeleteMapping("/deleteVal/{id}")
-	  void deleteLimit(@PathVariable Long id) {
+	  void deleteIncome(@PathVariable Long id) {
 		incomeService.delete(id);
 	  }
 	
-	
+	@GetMapping("/getAllIncomes")
+    public List<Income> getAllIncomes() {
+		return incomeService.getAllIncomes();
+    }
 	@GetMapping("/getTotalIncome")
     public double getTotalIncome() {
 		return incomeService.getTotalIncome();
     }
-	
 	@GetMapping("/getIdByVal")
 	public Long GetIdByVal(@PathVariable String desc, @PathVariable double income)
 	{
 		return incomeService.GetIdByVal(desc, income);
 	}
-}
+
+    }
+	
+
+	
+	
+    
+	
+
+
