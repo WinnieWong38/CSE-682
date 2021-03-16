@@ -20,6 +20,9 @@ new Vue({
 });
 */
 
+
+	
+
 $(document).ready(function() {
 	var categoryArr = [];
 	$.ajax({
@@ -143,7 +146,30 @@ $(document).ready(function() {
 				$('#item').val('');
 				$('#price').val('');
 	});
-	} );
+	
+	
+	$('#logout').off('click').on('click', function(){
+		alert(" Pre logout");
+		var token = $("meta[name='_csrf']").attr("Logout");
+      var header = $("meta[name='_csrf_header']").attr("submit");
+		$.ajax({
+        url : 'logout',
+        type : 'POST',
+        data: token,
+        beforeSend:function(xhr){
+             xhr.setRequestHeader(header, token);
+        },
+        success : function(data) { 
+            alert ('loged out');
+        }, 
+        error : function(data) {
+            console.log(data);
+        }
+		});
+		
+	});
+	
+	} );//eof
 	
 	
 	
