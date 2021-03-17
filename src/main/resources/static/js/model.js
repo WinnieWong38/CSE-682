@@ -4,7 +4,6 @@ function createExpense (expense, category, cost, date, isPaid) {
 	obj.category = category;
 	obj.cost = parseInt(cost);
 	obj.date = date;
-	console.log(obj);
 	obj.isPaid = isPaid;
 	return obj;
 }
