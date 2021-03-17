@@ -98,7 +98,9 @@ function createChart(){
 					data[item].expenseid,
 					data[item].expense,
 					data[item].category.category,
-					data[item].cost
+					data[item].cost,
+					data[item].date,
+					data[item].isPaid ? "<i class='fas fa-check'></i>" : "",
 				]).draw( false );
 			}
 		});
@@ -107,7 +109,7 @@ function createChart(){
 		function enableListeners(){
 			//Add new expense
 			$('#submit').off('click').on('click', function(){
-				var expense = createExpense($('#item').val(), createCategory($('#category option:selected').val(), $('#category option:selected').text()), $('#price').val());
+				var expense = createExpense($('#item').val(), createCategory($('#category option:selected').val(), $('#category option:selected').text()), $('#price').val(), $('#date').val(), $('#isPaid').prop('checked'));
 				$.ajax({
 					url: "/api/expense/addExpense",
 					method: "POST",
@@ -118,7 +120,9 @@ function createChart(){
 					table.row.add([
 						expense.expense,
 						expense.category.category,
-						expense.cost
+						expense.cost,
+						expense.date,
+						expense.isPaid
 					]).draw( false );
 					createChart();
 				});
@@ -135,10 +139,12 @@ function createChart(){
 				$('#itemModal').val(data[1]);
 				$('#categoryModal option:contains('+data[2]+')').attr('selected', 'selected')
 				$('#priceModal').val(data[3]);
+				$('#dateModal').val(data[4]);
+				$('#isPaidModal').prop('checked', data[5] != "");
 			});
 
 			$('#submitModal').off('click').on('click', function(){
-				var expense = createExpense($('#itemModal').val(), createCategory($('#categoryModal option:selected').val(), $('#categoryModal option:selected').text()), $('#priceModal').val());
+				var expense = createExpense($('#itemModal').val(), createCategory($('#categoryModal option:selected').val(), $('#categoryModal option:selected').text()), $('#priceModal').val(), $('#dateModal').val(), $('#isPaidModal').prop('checked'));
 				$.ajax({
 					url: "/api/expense/editExpense/" + data[0],
 					method: "PUT",
@@ -151,7 +157,9 @@ function createChart(){
 						expense.expenseid,
 						expense.expense,
 						expense.category.category,
-						expense.cost
+						expense.cost,
+						expense.date,
+						expense.isPaid ? "<i class='fas fa-check'></i>" : "",
 					]).draw( false );
 					createChart();
 					modal.style.display = "none";
@@ -185,3 +193,4 @@ function createChart(){
 			}
 			}
 		}
+		

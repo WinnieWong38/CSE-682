@@ -29,16 +29,6 @@ public interface IncomeRepository extends CrudRepository<Income, Long>{
 	Long getIdByVal(String income, double cost);
 	
 	void deleteById(Long id);
-	
-<<<<<<< HEAD
-
-	// List<Income> getAll();
-	
-	
-=======
-	List<Income> getAll();
-	
->>>>>>> f0d6127454333db5ef5dcfcf42318a68d51d03be
 	Optional<Income> findById(Long id);
 	@Query("select i from Income i where i.incomeid = :id")
 	Income getIncomeById(@Param("id") Long id);

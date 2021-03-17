@@ -6,7 +6,6 @@ import com.example.CSE682.model.Expense;
 
 public interface IExpenseService {
 
-	
 	List<Expense> getAll();
 	
 	Expense getExpenseById(Long id);
@@ -20,5 +19,7 @@ public interface IExpenseService {
 	double getTotalCostByCategory(Long id);
 	
 	Expense edit(Expense newExpense, Long id);
+	
+	public double getTotalCostBetweenTwoDates(String startDate, String endDate);
 	
 }

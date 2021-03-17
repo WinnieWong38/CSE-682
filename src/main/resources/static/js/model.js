@@ -1,8 +1,10 @@
-function createExpense (expense, category, cost) {
+function createExpense (expense, category, cost, date, isPaid) {
 	var obj = {};
 	obj.expense = expense;
 	obj.category = category;
 	obj.cost = parseInt(cost);
+	obj.date = date;
+	obj.isPaid = isPaid;
 	return obj;
 }
 

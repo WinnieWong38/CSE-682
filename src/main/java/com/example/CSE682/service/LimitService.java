@@ -40,7 +40,7 @@ public class LimitService implements ILimitService{
 		Limit limit = limitRepository.getLimitById(id);
 		limit.setLimit(newLimit.getLimit());
 		limit.setCategory(newLimit.getCategory());
-		limit.setLimitId(newLimit.getLimitId());
+//		limit.setLimitId(newLimit.getLimitId());
 	    return limitRepository.save(limit);
 	}
 	

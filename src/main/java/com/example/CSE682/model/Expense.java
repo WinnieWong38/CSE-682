@@ -1,5 +1,7 @@
 package com.example.CSE682.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,12 +29,20 @@ public class Expense {
     @Column(name="cost", length=50, nullable=false, unique=false)
     private double cost;
     
+    @Column(name="date", nullable=false, unique=false)
+    private LocalDate date;
+    
+    @Column(name="paid", nullable=false, unique=false)
+    private boolean isPaid;
+    
     public Expense() {}
     
-    public Expense(String expense, Category category, double cost) {
+    public Expense(String expense, Category category, double cost, LocalDate date, boolean isPaid) {
     	this.expense = expense;
     	this.category = category;
     	this.cost = cost;
+    	this.date = date;
+    	this.isPaid = isPaid;
     }
 
 	public Long getExpenseid() {
@@ -67,5 +77,20 @@ public class Expense {
 		this.cost = cost;
 	}
 	
+	public LocalDate getDate() {
+		return date;
+	}
+	
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public boolean getIsPaid() {
+		return isPaid;
+	}
+	
+	public void setIsPaid(boolean isPaid) {
+		this.isPaid = isPaid;
+	}
 	
 }

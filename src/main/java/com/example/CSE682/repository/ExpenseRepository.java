@@ -24,6 +24,9 @@ public interface ExpenseRepository extends CrudRepository<Expense, Long>{
 	
 	@Query("select SUM(e.cost) from Expense e where e.category = :category")
 	double getTotalCostByCategory(@Param("category") Optional<Category> category);
+	
+	@Query("select SUM(e.cost) from Expense e where :startDate <= e.date AND :endDate >= e.date")
+	double getTotalCostBetweenTwoDates(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
 	Expense saveAndFlush(Expense expense);
 	

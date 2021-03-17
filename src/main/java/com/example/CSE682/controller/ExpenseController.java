@@ -2,6 +2,8 @@ package com.example.CSE682.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +39,6 @@ public class ExpenseController {
 		return expenseService.save(expense);
 	}
 	
-	//PutMapping - for edit
 	@PutMapping("/editExpense/{id}")
 	public Expense editExpense(@RequestBody Expense newExpense, @PathVariable Long id) {
 	    return expenseService.edit(newExpense, id);
@@ -58,7 +59,11 @@ public class ExpenseController {
 		return expenseService.getTotalCostByCategory(id);
     }
 	
-	//GET TOTAL COST BY MONTH
+	@GetMapping("/getTotalCostBetweenTwoDates")
+	public double getTotalCostBetweenTwoDates(HttpServletRequest request) {
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		return expenseService.getTotalCostBetweenTwoDates(startDate, endDate);
+	}
 	
-	//GET TOTAL COST BETWEEN TWO DATES
 }

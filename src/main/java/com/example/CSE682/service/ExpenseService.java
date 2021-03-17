@@ -41,7 +41,8 @@ public class ExpenseService implements IExpenseService{
 		expense.setCategory(newExpense.getCategory());
 		expense.setCost(newExpense.getCost());
 		expense.setExpense(newExpense.getExpense());
-		//expense.setExpenseid(newExpense.getExpenseid());
+		expense.setDate(newExpense.getDate());
+		expense.setIsPaid(newExpense.getIsPaid());
 		return expenseRepository.saveAndFlush(expense);
 	}
 	
@@ -59,5 +60,10 @@ public class ExpenseService implements IExpenseService{
 	public double getTotalCostByCategory(Long id) {
 		Optional<Category> category = categoryRepository.findById(id);
 		return expenseRepository.getTotalCostByCategory(category);
+	}
+	
+	@Override
+	public double getTotalCostBetweenTwoDates(String startDate, String endDate) {
+		return expenseRepository.getTotalCostBetweenTwoDates(startDate, endDate);
 	}
 }
