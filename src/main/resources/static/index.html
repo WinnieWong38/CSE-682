@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="css/lib/fontawesome-all.css">
     <link rel="stylesheet" href="css/lib/c3.css">
     <link rel="stylesheet" href="css/modal.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Budget App</title>
 </head>
 
@@ -414,7 +415,15 @@
 											<div class="form-group">
 											<label>Price: </label>
 											<input type="number" min="0" id="price"></input>
-											</div>
+                                            </div>
+                                            <div class="form-group">
+                                            <label>Date: </label>
+                                            <input type="date" id="date"></input>
+                                            </div>
+                                            <div class="form-group">
+                                            <label>Paid: </label>
+                                            <input type="checkbox" id="isPaid"></input>
+                                            </div>
 											<button type="button" id="submit">Submit</button>
 										</div>
                                     </div>
@@ -439,7 +448,9 @@
                                                         <th>id</th>
 														<th>Item</th>
 														<th>Category</th>
-														<th>Price</th>
+                                                        <th>Price</th>
+                                                        <th>Date</th>
+                                                        <th>Paid</th>
 													</tr>
 												</thead>
 											</table>
@@ -494,6 +505,14 @@
             <div class="form-group">
             <label>Price: </label>
             <input type="number" min="0" id="priceModal"></input>
+            </div>
+            <div class="form-group">
+            <label>Date: </label>
+            <input type="date" id="dateModal"></input>
+            </div>
+            <div class="form-group">
+            <label>Paid: </label>
+            <input type="checkbox" id="isPaidModal"></input>
             </div>
             <button type="button" id="submitModal">Submit</button>
             <button type="button" id="deleteModal">Delete</button>
