@@ -1,4 +1,9 @@
 	$(document).ready(function() {
+	document.getElementById("error").style.display = "none"; 
+	});
+	
+	$(document).ready(function() {
+		
 		
 		
 		$('#submit').off('click').on('click', function(){
@@ -16,37 +21,25 @@
 			method: "POST",
 			contentType: "application/json",
     		dataType: "json",
-			data: JSON.stringify(saveObj)
-		});	
+			data: JSON.stringify(saveObj),
+			success: function() {
+            	 //now login the new user            	 
+            	 $.ajax({
+            	 	url: "/Login",
+					method: "POST",
+					contentType: "application/json",
+    				dataType: "json",
+					data: JSON.stringify(saveObj)
+					}).done(function() {
+						window.location.href = "index.html";
+					});
+					
+            },
+            error: function() {             
+             document.getElementById("error").style.display = "block"; 
+            }
+          });
 	});
 	
-	} );
+	});	
 	
-	
-	/*
-
-
-$(document).ready(function() {
-		
-		
-		$('#submit').off('click').on('click', function(){
-		alert('REGISTER');
-		
-	/*	var saveObj = {};
-		saveObj.username = $('#username').val();		
-		saveObj.password = parseInt($('#password').val());
-		console.log(saveObj);
-		$.ajax({
-			url: "/api/user/addUser",
-			method: "POST",
-			contentType: "application/json",
-    		dataType: "json",
-			data: JSON.stringify(saveObj)
-		});
-		
-	});
-	
-	} );
-	
-	
-	*/

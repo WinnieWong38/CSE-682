@@ -47,12 +47,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests()		
-			.antMatchers("/js/**", "/api/**", "/css/**","/register.html", "/assets/**").permitAll()		    
+			.antMatchers("/login.html","/js/**", "/api/**", "/css/**","/register.html", "/assets/**").permitAll()		    
 		    .antMatchers("/index.html","/income.html").authenticated()
 		    .anyRequest().authenticated()
 			.and()
 			.formLogin()
-			//.loginPage("/login.html")				
+			.loginPage("/login.html")				
 			      .defaultSuccessUrl("/index.html", true)			      
 			  //    .failureHandler(authenticationFailureHandler())
 			      .and()

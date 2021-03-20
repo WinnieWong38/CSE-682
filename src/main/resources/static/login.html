@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
- 
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -10,10 +9,11 @@
     <link rel="stylesheet" href="css/lib/fontawesome-all.css">
     <link rel="stylesheet" href="css/lib/c3.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
-    <title>Register User</title>
+    <title>User Login</title>
+
 </head>
 
-<body>
+<body">
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
@@ -24,8 +24,6 @@
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
                 <a class="navbar-brand" href="index.html">Stay on Track</a>
-               
-               
             </nav>
         </div>
         <!-- ============================================================== -->
@@ -43,8 +41,6 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav flex-column">
-                            
-                            
                         </ul>
                     </div>
                 </nav>
@@ -67,32 +63,44 @@
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
                     <div class="ecommerce-widget">
-
                         <div class="row">
-                           
-                               
                             </div>
-							
+						
                                 <div class="card">
-                                    <h5 class="card-header">Add User</h5>
+                                    
                                     <div class="card-body">
                                         <div>
-                                        <div id="error" class="alert alert-error">                                           
-                    						Invalid username or password.
-                						</div>
-										<div class="form-group">
-											<label>User Name: </label>
-											<input type="text" id="username"></input>
-											</div>
-											<div class="form-group">
-											<label>Password: </label>
-											<input type="password" id="password"></input>
-											</div>
-											<button type="button" id="submit">Create</button>
-											<div>
-					<a href="login.html">login page</a>
+										<div th:fragment="content">
+        <form name="f" th:action="@{/login}" method="post">               
+            <fieldset>
+
+                <legend>Please Login</legend>
+				<div id="error" class="alert alert-error">    
+                    Invalid username and password.
+                </div>
+                <div id="logout" class="alert alert-success"> 
+                    You have been logged out.
+                </div>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username"/>  
+				<div>      
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password"/>
+				</div>    
+                <div class="form-actions">
+                    <button type="submit" class="btn">Log in</button>
+                </div>
+				<div></div>
+				<div>
+					<a href="register.html">Register for an acccount</a>
 				</div>
-										</div>
+				<div>		
+				
+				
+				</div>
+            </fieldset>
+        </form>
+    </div>
                                     </div>
                                 </div>
                             
@@ -117,8 +125,9 @@
     <script src="js/lib/c3.min.js"></script>
     <script src="js/lib/d3-5.4.0.min.js"></script>
     <script src="js/lib/C3chartjs.js"></script>
-    <script src="js/register.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>	
+	<script src="js/login.js"></script>
+	
 </body>
  
 </html>
