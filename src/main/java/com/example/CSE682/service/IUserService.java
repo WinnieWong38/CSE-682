@@ -15,4 +15,8 @@ public interface IUserService {
 	void deleteById(Long id);
 		
 	User getUserByUserName(String name);
+	
+	boolean checkPwd(String username, String password);
+	
+	boolean changePwd(String username, String newPassword);
 }
