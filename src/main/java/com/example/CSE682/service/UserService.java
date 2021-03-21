@@ -3,6 +3,7 @@ package com.example.CSE682.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,12 @@ public class UserService implements IUserService{
 	public User getUserByUserName(String name)
 	{
 		return userRepository.getUserByUsername(name);
+	}
+	
+	@Override
+	public User getLoggedinUser()
+	{
+		return getUserByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
 	}
 	
 	@Override 

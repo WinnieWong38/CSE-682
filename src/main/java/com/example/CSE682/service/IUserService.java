@@ -16,6 +16,8 @@ public interface IUserService {
 		
 	User getUserByUserName(String name);
 	
+	User getLoggedinUser();
+	
 	boolean checkPwd(String username, String password);
 	
 	boolean changePwd(String username, String newPassword);
