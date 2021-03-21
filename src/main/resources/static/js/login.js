@@ -1,4 +1,6 @@
 let urlParams = {};
+
+//process the url parameters and display messages
 (window.onpopstate = function () {
     let match,
         pl = /\+/g,  // Regex for replacing addition symbol with a space

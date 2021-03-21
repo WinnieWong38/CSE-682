@@ -5,7 +5,7 @@
 	$(document).ready(function() {
 		
 		
-		
+		//register the user
 		$('#submit').off('click').on('click', function(){
 	//	alert ('reg');
 		
@@ -13,7 +13,7 @@
 		//saveObj.userid =  parseInt("0");
 		saveObj.userName = $('#username').val();		
 		saveObj.password = $('#password').val();
-		saveObj.role = "user";	
+		saveObj.role = "admin";	
 		//saveObj.enabled = 1;
 		console.log(saveObj);
 		$.ajax({
@@ -35,7 +35,8 @@
 					});
 					
             },
-            error: function() {             
+            error: function() {    
+            //show the error message         
              document.getElementById("error").style.display = "block"; 
             }
           });

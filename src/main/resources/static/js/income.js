@@ -168,5 +168,16 @@ $(document).ready(function() {
 	
 	} );
 	
+	//get the user name
+	$(document).ready(function() {
+	$.ajax({
+			url: "/Auth/getUsername"
+		}).done(function(data){			
+			var x = document.getElementById("username");
+			x.innerHTML = "logged in as: " + data; 
+		});
+	
+	});
+	
 	
 	

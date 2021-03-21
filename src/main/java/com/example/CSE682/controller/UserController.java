@@ -29,22 +29,16 @@ public class UserController {
 	/*@GetMapping("/getUsers")
     public List<UserAccount> getUsers() {
 		return userDetails.getAll();
-    }
-	
-	/*@PostMapping("/addUser")
-	public UserAccount addUser(@RequestBody UserAccount user){
-		return userService.save(user);
-	}
+    }	
 	*/
 	
 	@PostMapping("/addUser")
 	public User addUser(@RequestBody User user){
+		//make sure that only regular users are created with this call for security
+		user.setRole("user");
 		//encode the password
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		return userService.save(user);
-		//UserAccount t = userService.save(user);
-		//userDetails.registerNewUser(t); //change password
-		
+		return userService.save(user);		
 	}
 	
 	
