@@ -78,7 +78,7 @@
                                     <div class="card-body">
                                         <div>
                                         <div id="error" class="alert alert-error">                                           
-                    						Invalid username or password.
+                    						Error Creating the User.
                 						</div>
 										<div class="form-group">
 											<label>User Name: </label>
@@ -86,9 +86,22 @@
 											</div>
 											<div class="form-group">
 											<label>Password: </label>
-											<input type="password" id="password"></input>
+											<input type="password" id="newpassword" onchange  
+											    onpropertychange											            
+           										onkeyuponpaste oninput="checkReady()"></input>
 											</div>
+											<div>
+											<label>Confirm New Password: </label>
+											<input type="password" id="retypepassword" onchange  
+											    onpropertychange											            
+           										onkeyuponpaste oninput="checkReady()" /> ></input>
+											</div>		
+											<div id="pwdmatch" class="alert alert-error">                                           
+                    						Passwords do not match.
+                						</div>		
+                						<div id="subbtn" style="display:none">
 											<button type="button" id="submit">Create</button>
+											</div>
 											<div>
 					<a href="login.html">login page</a>
 				</div>
