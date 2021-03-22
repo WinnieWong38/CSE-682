@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.CSE682.model.Limit;
+import com.example.CSE682.model.Category;
 
 public interface LimitRepository extends CrudRepository<Limit, Long>{
 
@@ -23,4 +24,7 @@ public interface LimitRepository extends CrudRepository<Limit, Long>{
 	Limit getLimitById(@Param("id") Long id);
 	
 	void deleteById(Long id);
+
+	@Query("select l from Limit l where l.category = :category")
+	Limit getLimitByIdByCategory(@Param("category") Category category);
 }

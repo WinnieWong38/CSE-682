@@ -14,3 +14,10 @@ function createCategory (categoryId, category) {
 	obj.category = category;
 	return obj;
 }
+
+function createLimit(limit, category){
+	var obj = {};
+	obj.limit = parseInt(limit);
+	obj.category = category;
+	return obj;
+}

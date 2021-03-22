@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import java.util.ArrayList;
 
 
 import com.example.CSE682.model.Limit;
@@ -39,22 +40,26 @@ public class LimitController {
 	}
 	
 	//PutMapping - for edit
-	@PutMapping("/editLimit")
+	@PutMapping("/editLimit/{id}")
 	  Limit editLimit(@RequestBody Limit newLimit, @PathVariable Long id) {
 	    return limitService.edit(newLimit, id);
 	  }
 	
 	//DeleteMapping - for delete
-	 @DeleteMapping("/deleteLimit")
+	 @DeleteMapping("/deleteLimit/{id}")
 	  void deleteLimit(@PathVariable Long id) {
 		 limitService.delete(id);
 	  }
 	 
-	//   @GetMapping("/getLimitAndCategoriesAndExpenses")
-	//   public ArrayList<ArrayList> getLimitAndCategoriesAndExpenses() {
-	// 	  return limitService.limitBarChar();
-	//   }
-	 
+	@GetMapping("/getLimitAndCategoriesAndExpenses")
+	public ArrayList<ArrayList> getLimitAndCategoriesAndExpenses() {
+		return limitService.limitBarChar();
+	}
+	
+	@GetMapping("/getLimitByCategory/{id}")
+	public Limit getLimitByCategory(@PathVariable Long id) {
+		return limitService.getLimitByIdByCategory(id);
+	}
 	 
 }
 

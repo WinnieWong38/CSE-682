@@ -13,7 +13,7 @@ public interface CategoryRepository extends CrudRepository<Category, Long>{
 
 	List<Category> findAll();
 	
-	@Query("select 1 from Category c where c.categoryid = :id")
+	@Query("select c from Category c where c.categoryid = :id")
 	Category getCategoryById(@Param("id") Long id);
 	
 	Optional<Category> findById(Long id);

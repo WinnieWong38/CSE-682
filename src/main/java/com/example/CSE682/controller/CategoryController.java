@@ -32,7 +32,7 @@ public class CategoryController {
 		return categoryService.getCategoryById(id);
 	}
 	
-	@PutMapping("/editLimit")
+	@PutMapping("/editCategory/{id}")
 	public Category editExpense(@RequestBody Category newCategory, @PathVariable Long id) {
 	    return categoryService.edit(newCategory, id);
 	}
