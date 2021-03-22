@@ -1,14 +1,17 @@
 package com.example.CSE682.service;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.CSE682.repository.LimitRepository;
 import com.example.CSE682.model.Limit;
+import com.example.CSE682.model.Category;
 
 import com.example.CSE682.service.IExpenseService;
+import com.example.CSE682.service.ICategoryService;
 
 @Service
 public class LimitService implements ILimitService{
@@ -18,6 +21,9 @@ public class LimitService implements ILimitService{
 
 	@Autowired
 	IExpenseService expenseService;
+
+	@Autowired
+	ICategoryService categoryService;
 	
 	@Override
 	public List<Limit> getAll(){
@@ -50,18 +56,28 @@ public class LimitService implements ILimitService{
 
 	}
 
-	// @Override
-	// public ArrayList<ArrayList> limitBarChar(){
-	// 	ArrayList<Double> returnList = ArrayList<>();
-	// 	ArrayList<Double> expenses = ArrayList<>();
-	// 	ArrayList<Double> limits = ArrayList<>();
-	// 	for(Limit limit : getAll()){
-	// 		limits.add(limit.getLimit());
-	// 		expenses.add(expenseService.getTotalCostByCategory(limit.getCategory().getCategoryId));
-	// 	}
-	// 	returnList.add(limits);
-	// 	returnList.add(expenses);
-	// 	return returnList;
-	// }
+	@Override
+	public ArrayList<ArrayList> limitBarChar(){
+		ArrayList<ArrayList> returnList = new ArrayList<>();
+		ArrayList<String> categories = new ArrayList<>();
+		ArrayList<Double> expenses = new ArrayList<>();
+		ArrayList<Double> limits = new ArrayList<>();
+		for(Limit limit : getAll()){
+			categories.add(limit.getCategory().getCategory());
+			limits.add(limit.getLimit());
+			expenses.add(expenseService.getTotalCostByCategory(limit.getCategory().getCategoryid()));
+		}
+		
+		returnList.add(limits);
+		returnList.add(expenses);
+		returnList.add(categories);
+		return returnList;
+	}
+
+	@Override
+	public Limit getLimitByIdByCategory(Long id){
+		Category category = categoryService.getCategoryById(id);
+		limitRepository.getLimitByIdByCategory(category);
+	}
 }
 

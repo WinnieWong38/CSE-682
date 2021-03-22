@@ -1,6 +1,7 @@
 package com.example.CSE682.service;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import com.example.CSE682.model.Limit;
 
@@ -16,6 +17,8 @@ public interface ILimitService {
 	
 	Limit getLimitById(Long id);
 
-	//ArrayList<ArrayList> limitBarChar();
+	ArrayList<ArrayList> limitBarChar();
+
+	Limit getLimitByIdByCategory(Long id);
 
 }

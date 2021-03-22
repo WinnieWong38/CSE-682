@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/lib/fontawesome-all.css">
     <link rel="stylesheet" href="css/lib/c3.css">
+    <link rel="stylesheet" href="css/modal.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
     <title>Income</title>
 </head>
@@ -111,26 +112,86 @@
                     <!-- ============================================================== -->
                     <!-- pageheader  -->
                     <!-- ============================================================== -->
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="page-header">
+                                <h2 class="pageheader-title">Categories</h2>
+								<hr />
+                            </div>
+                        </div>
+                    </div>
                     <!-- ============================================================== -->
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
                     <div class="ecommerce-widget">
-                        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <h5 class="card-header">Categories Limit</h5>
-                                <div class="card-body">
-                                    <div>
-                                        <div id="barChart"></div>
+
+                        <div class="row">
+                            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                                <div class="card">
+                                    <h5 class="card-header">Limit breakdown</h5>
+                                    <div class="card-body">
+                                        <div id="c3chart_category" style="height: 150px;"></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+							<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                                <div class="card">
+                                    <h5 class="card-header">Add new category</h5>
+                                    <div class="card-body">
+                                        <div>
+										<div class="form-group">
+											<label>Category: </label>
+											<input type="text" id="category"></input>
+											</div>
+                                            <div class="form-group">
+                                                <label>Category Limit: </label>
+                                                <input type="number" min="0" id="limit"></input>
+                                                </div>
+											<button type="button" id="submit">Submit</button>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                                <div class="card">
+                                    <h5 class="card-header">All Category Limit</h5>
+                                    <div class="card-body">
+                                        <div>
+										<div class="form-group">
+											<label>Total Monthly Limit: </label>
+											<input type="text" id="item"></input>
+											</div>
+											<button type="button" id="submit">Submit</button>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+							</div>
+                        <div class="row">
                             <!-- ============================================================== -->
                       
                             <!-- ============================================================== -->
 
                                           <!-- recent orders  -->
                             <!-- ============================================================== -->
+                            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+                                <div class="card">
+                                    <h5 class="card-header">Category Table</h5>
+									<div class="card-body">
+										<div>
+											<table id="example" class="display" style="width:100%">
+												<thead>
+													<tr>
+														<th>id</th>
+														<th>Category</th>
+                                                        <th>Limit</th>														
+													</tr>
+												</thead>
+											</table>
+										</div>
+									</div>
+                                </div>
+                            </div>
                             <!-- ============================================================== -->
                             <!-- end recent orders  -->
 
@@ -156,7 +217,27 @@
         <!-- ============================================================== -->
         <!-- end wrapper  -->
         <!-- ============================================================== -->
-    </div>
+        <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div>
+            <div class="form-group">
+                <label>Category </label>
+                <input type="text" id="itemModal"></input>
+                </div>
+                <div class="form-group">
+                    <label>limit </label>
+                    <input type="text" id="limitModal"></input>
+                    </div>
+                <button type="button" id="submitModal">Submit</button>
+                <button type="button" id="deleteModal">Delete</button>
+            </div>
+        </div>
+      
+      </div>
     <!-- ============================================================== -->
     <!-- end main wrapper  -->
     <!-- ============================================================== -->
@@ -165,9 +246,9 @@
     <script src="js/lib/c3.min.js"></script>
     <script src="js/lib/d3-5.4.0.min.js"></script>
     <script src="js/lib/C3chartjs.js"></script>
-    <script src="js/stats.js"></script>
+    <script src="js/category.js"></script>
+    <script src="js/model.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 </body>
  
 </html>
