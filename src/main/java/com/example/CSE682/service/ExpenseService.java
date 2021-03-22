@@ -135,6 +135,6 @@ public class ExpenseService implements IExpenseService{
 		double total_expense = expenseRepository.getTotalCost();
 		double total_income = incomeRepository.getTotalIncome();
 		
-		return total_expense / total_income;
+		return total_expense / total_income * 100;
 	}
 }
