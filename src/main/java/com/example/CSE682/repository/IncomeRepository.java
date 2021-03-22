@@ -16,7 +16,7 @@ public interface IncomeRepository extends CrudRepository<Income, Long>{
 
 	List<Income> findAll();
 	
-	@Query("select SUM(e.income) from Income e")
+	@Query("select SUM(i.cost) from Income i")
 	double getTotalIncome();	
 	
 	//@Delete("see")
