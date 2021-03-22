@@ -25,9 +25,7 @@ $(document).ready(function() {
 	$.ajax({
 			url: "/api/income/getIncomes"
 		}).done(function(data){
-		console.error(data);
 			for(let item in data){
-			console.error(data[item]);
 			categoryArr.push([ data[item].description, data[item].income]);											
 				var chart = c3.generate({
         bindto: "#c3chart_category",
@@ -77,9 +75,6 @@ $(document).ready(function() {
 		});
 		*/ 
 		
-		
-		
-		
 		$('#example thead tr').clone(true).appendTo( '#example thead' );
 		$('#example thead tr:eq(1) th').each( function (i) {
         var title = $(this).text();
@@ -108,12 +103,11 @@ $(document).ready(function() {
 		$.ajax({
 			url: "/api/income/getIncomes"
 		}).done(function(data){
-			console.error('data', data);
 			for(let item in data){
 				table.row.add([
 					data[item].incomeid,
-					data[item].description,					
 					data[item].income,					
+					data[item].cost,
 					"<input id='btnDelete' class='btn btn-success' width='15px' value='Delete' />"
 				]).draw( false );
 			}
@@ -125,45 +119,40 @@ $(document).ready(function() {
 		
 		
 		$('#example tbody').on('click', '[id*=btnDelete]', function () {
-            var data = table.row($(this).parents('tr')).data();
+			var row = $(this).parents('tr');
+            var data = table.row(row).data();
             var id = data[0];
 			var description = data[1];
-            var income = data[2];            
-            alert("Id: " + id + "Desc : " + description + "\n" + "Income : " + income );
+            var income = data[2];
          
 			$.ajax({
 				type: "DELETE",
 				url: "/api/income/deleteVal/"+id
-			}).done(function()
-			{
-				//table redraw
-				table.redraw();
+			}).done(function(){
+				table.row( row ).remove().draw();
 			});
 		});
-				
-		
 		
 		$('#submit').off('click').on('click', function(){
 		var saveObj = {};
-		saveObj.description = $('#description').val();		
-		saveObj.income = parseInt($('#income').val());
-		console.log(saveObj);
+		saveObj.income = $('#description').val();		
+		saveObj.cost = parseInt($('#income').val());
 		$.ajax({
 			url: "/api/income/addIncome",
 			method: "POST",
 			contentType: "application/json",
     		dataType: "json",
 			data: JSON.stringify(saveObj)
+		}).done(function(income){
+			console.log(income);
+			table.row.add([
+				income.incomeid,
+				income.income,
+				income.cost,
+				"<input id='btnDelete' class='btn btn-success' width='15px' value='Delete' />"
+			]).draw( false );
+			//createChart();
 		});
-		//table redraw
-				table.redraw();
-	/*	table.row.add([
-					saveObj.description,					
-					saveObj.income
-				]).draw( false );
-				$('#desctiption').val('');
-				$('#income').val('');
-		*/		
 	});
 	
 	} );

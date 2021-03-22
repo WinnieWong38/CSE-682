@@ -1,5 +1,6 @@
 package com.example.CSE682.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,5 +66,16 @@ public class ExpenseController {
 		String endDate = request.getParameter("endDate");
 		return expenseService.getTotalCostBetweenTwoDates(startDate, endDate);
 	}
+
+	@GetMapping("/getTimeseriesChart")
+	public ArrayList<ArrayList> getTimeseriesChart() {
+		return expenseService.getTimeseriesChart();
+	}
+	
+	@GetMapping("/getTotalExpenseToIncomeRatio")
+	public double getTotalExpenseToIncomeRatio() {
+		return expenseService.getTotalExpenseToIncomeRatio();
+	}
+	
 	
 }

@@ -1,5 +1,6 @@
 package com.example.CSE682.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +27,13 @@ public interface ExpenseRepository extends CrudRepository<Expense, Long>{
 	double getTotalCostByCategory(@Param("category") Optional<Category> category);
 	
 	@Query("select SUM(e.cost) from Expense e where :startDate <= e.date AND :endDate >= e.date")
-	double getTotalCostBetweenTwoDates(@Param("startDate") String startDate, @Param("endDate") String endDate);
+	double getTotalCostBetweenTwoDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+	
+	@Query("SELECT MIN(date) FROM Expense")
+	LocalDate getEarliestDate();
+	
+	@Query("select SUM(e.cost) from Expense e where :startDate <= e.date AND :endDate >= e.date AND e.category = :category")
+	double getTotalCostBetweenTwoDatesByCategory(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, Category category);
 
 	Expense saveAndFlush(Expense expense);
 	

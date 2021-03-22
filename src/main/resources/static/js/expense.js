@@ -118,11 +118,12 @@ function createChart(){
 					data: JSON.stringify(expense)
 				}).done(function(expense){
 					table.row.add([
+						expense.expenseid,
 						expense.expense,
 						expense.category.category,
 						expense.cost,
 						expense.date,
-						expense.isPaid
+						expense.isPaid ? "<i class='fas fa-check'></i>" : ""
 					]).draw( false );
 					createChart();
 				});
