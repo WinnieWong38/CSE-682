@@ -72,9 +72,9 @@ public class ExpenseController {
 		return expenseService.getTimeseriesChart();
 	}
 	
-	@GetMapping("/getTotalExpenseToIncomeRatio")
-	public double getTotalExpenseToIncomeRatio() {
-		return expenseService.getTotalExpenseToIncomeRatio();
+	@GetMapping("/getTotalExpenseToLimitRatio")
+	public double getTotalExpenseToLimitRatio() {
+		return expenseService.getTotalExpenseToLimitRatio();
 	}
 	
 	

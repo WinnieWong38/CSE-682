@@ -57,7 +57,7 @@ public class LimitService implements ILimitService{
 	}
 
 	@Override
-	public ArrayList<ArrayList> limitBarChar(){
+	public ArrayList<ArrayList> limitBarChar() {
 		ArrayList<ArrayList> returnList = new ArrayList<>();
 		ArrayList<String> categories = new ArrayList<>();
 		ArrayList<Double> expenses = new ArrayList<>();
@@ -75,9 +75,21 @@ public class LimitService implements ILimitService{
 	}
 
 	@Override
-	public Limit getLimitByIdByCategory(Long id){
+	public Limit getLimitByIdByCategory(Long id) {
 		Category category = categoryService.getCategoryById(id);
 		return limitRepository.getLimitByIdByCategory(category);
+	}
+	
+	@Override
+	public Limit setTotalLimit(Limit totalLimit) {
+		Limit total_limit_repository = limitRepository.getTotalLimit();
+		if (total_limit_repository == null) {
+			total_limit_repository = limitRepository.save(totalLimit);
+		} else {
+			total_limit_repository.setLimit(totalLimit.getLimit());
+		}
+		
+		return total_limit_repository;
 	}
 }
 
