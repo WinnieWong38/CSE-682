@@ -17,4 +17,5 @@ public interface CategoryRepository extends CrudRepository<Category, Long>{
 	Category getCategoryById(@Param("id") Long id);
 	
 	Optional<Category> findById(Long id);
+		
 }

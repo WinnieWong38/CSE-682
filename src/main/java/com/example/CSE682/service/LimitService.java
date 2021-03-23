@@ -77,7 +77,7 @@ public class LimitService implements ILimitService{
 	@Override
 	public Limit getLimitByIdByCategory(Long id){
 		Category category = categoryService.getCategoryById(id);
-		limitRepository.getLimitByIdByCategory(category);
+		return limitRepository.getLimitByIdByCategory(category);
 	}
 }
 

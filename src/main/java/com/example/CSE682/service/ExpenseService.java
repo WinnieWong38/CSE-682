@@ -68,7 +68,15 @@ public class ExpenseService implements IExpenseService{
 	@Override
 	public double getTotalCostByCategory(Long id) {
 		Optional<Category> category = categoryRepository.findById(id);
-		return expenseRepository.getTotalCostByCategory(category);
+		if(category.isEmpty()) return 0.0;
+		int count = expenseRepository.getCountByCategory(category.get());
+		if(count > 0)
+		{
+			double rtn = expenseRepository.getTotalCostByCategory(category.get());
+			return rtn;
+		}
+		else return 0.0;
+		
 	}
 	
 	@Override
