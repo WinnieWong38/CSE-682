@@ -26,11 +26,15 @@ public class Limit {
     @JoinColumn(name="category", referencedColumnName="categoryid")
     private Category category;
 	
+	@Column(name="isTotal", nullable=false, unique=false)
+	private boolean isTotal;
+	
 	public Limit() {}
 	
-	public Limit(Double limit, Category category) {
+	public Limit(Double limit, Category category, boolean isTotal) {
 		this.limit = limit;
 		this.category = category;
+		this.isTotal = isTotal;
 	}
 
 	public Long getLimitId() {
@@ -55,5 +59,13 @@ public class Limit {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	
+	public boolean getIsTotal() {
+		return isTotal;
+	}
+	
+	public void setIsTotal(boolean isTotal) {
+		this.isTotal = isTotal;
 	}
 }
