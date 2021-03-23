@@ -24,7 +24,7 @@ $(document).ready(function() {
 	var categoryArr = [];
 	$.ajax({
 			url: "/api/income/getIncomes"
-		}).done(function(data){		
+		}).done(function(data){
 			for(let item in data){
 			categoryArr.push([ data[item].description, data[item].income]);											
 				var chart = c3.generate({
