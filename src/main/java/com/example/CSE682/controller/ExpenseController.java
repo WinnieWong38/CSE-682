@@ -60,15 +60,26 @@ public class ExpenseController {
 		return expenseService.getTotalCostByCategory(id);
     }
 	
-	@GetMapping("/getTotalCostBetweenTwoDates")
+	@PostMapping("/getTotalCostBetweenTwoDates")
 	public double getTotalCostBetweenTwoDates(HttpServletRequest request) {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		return expenseService.getTotalCostBetweenTwoDates(startDate, endDate);
 	}
+	
+	@PostMapping("/getTotalCostBetweenTwoDatesByCategory")
+	public double getTotalCostBetweenTwoDatesByCategory(HttpServletRequest request) {
+		String startDate = request.getParameter("startDate");
+		System.out.println(startDate);
+		String endDate = request.getParameter("endDate");
+		System.out.println(endDate);
+		Long categoryId = Long.parseLong(request.getParameter("categoryId"));
+		System.out.println(categoryId);
+		return expenseService.getTotalCostBetweenTwoDatesByCategory(startDate, endDate, categoryId);
+	}
 
 	@GetMapping("/getTimeseriesChart")
-	public ArrayList<ArrayList> getTimeseriesChart() {
+	public ArrayList<ArrayList<Object>> getTimeseriesChart() {
 		return expenseService.getTimeseriesChart();
 	}
 	

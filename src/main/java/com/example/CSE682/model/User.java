@@ -12,9 +12,6 @@ import javax.persistence.Table;
 @Table(name = "useraccount")
 public class User {
 	
-
-    
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -27,11 +24,6 @@ public class User {
 	
 	@Column(name="role", length=50, nullable=false, unique=false)
 	private String role;
-	
-	
-	/*@Column(name="enabled", nullable=false, unique=false)
-	private boolean enabled;
-	*/
 	
 	public User() {}
 	
@@ -78,15 +70,4 @@ public class User {
 	{
 		this.role = role;
 	}
-	
-	/*public boolean getEnabled()
-	{
-		return this.enabled;
-	}
-	
-	public void setRole(boolean enabled)
-	{
-		this.enabled = enabled;
-	}
-	*/
 }
