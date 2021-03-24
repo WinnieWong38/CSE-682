@@ -23,4 +23,6 @@ public interface ILimitService {
 	
 	Limit setTotalLimit(Limit totalLimit);
 
+	Limit getTotalLimit();
+
 }

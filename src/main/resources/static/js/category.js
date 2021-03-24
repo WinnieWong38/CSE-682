@@ -9,6 +9,7 @@ function init(){
 	//createChart();
 	createTable();
 	enableListeners();
+	getTotalLimit();
 }
 
 
@@ -94,6 +95,14 @@ function createChart(){
 			}
 		});
 	}
+
+	function getTotalLimit(){
+		$.ajax({
+			url: "/api/limit/getTotalLimit"
+		}).done(function(limit){
+			$('#totalLimitText').text(limit.limit);
+		});
+	}
 		
 		function enableListeners(){
 			//Add new expense
@@ -107,7 +116,7 @@ function createChart(){
 					data: JSON.stringify(category)
 				}).done(function(category){
                     if($('#limit').val()){
-                    var limit = createLimit($('#limit').val(), category);
+                    var limit = createLimit($('#limit').val(), category, false);
                     $.ajax({
                         url: "/api/limit/addLimit",
 					    method: "POST",
@@ -124,6 +133,18 @@ function createChart(){
 					
 				});
 			
+			});
+			$('#submitTotal').off('click').on('click', function(){
+				var limit = createLimit($('#totalLimit').val(), null, true);
+				$.ajax({
+					url: "/api/limit/setTotalLimit",
+					method: "POST",
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify(limit)
+				}).done(function(limit){
+					$('#totalLimitText').text(limit.limit);
+				})
 			});
 		}
 
@@ -168,7 +189,7 @@ function createChart(){
 							dataType: "json",
 							data: JSON.stringify(limit)
 						}).done(function(limit){
-
+							console.error('limit', limit)
 						});
                     }
                     addToTable(category.categoryid, category.category);

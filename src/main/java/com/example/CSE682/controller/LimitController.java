@@ -63,5 +63,10 @@ public class LimitController {
 	public Limit setTotalLimit(@RequestBody Limit totalLimit) {
 		return limitService.setTotalLimit(totalLimit);
 	}
+
+	@GetMapping("/getTotalLimit")
+    public Limit getTotalLimit() {
+		return limitService.getTotalLimit();
+    }
 }
 
