@@ -124,3 +124,14 @@ function createTable(){
     //     }
     // });
 }
+
+//get the user name
+	$(document).ready(function() {
+	$.ajax({
+			url: "/api/User/getUsername"
+		}).done(function(data){			
+			var x = document.getElementById("username");
+			x.innerHTML = data; 
+		});
+	
+	});

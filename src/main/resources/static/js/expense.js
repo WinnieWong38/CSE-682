@@ -1,8 +1,50 @@
 var table;
 var chart;
 
+//get the user name
+	$(document).ready(function() {
+	$.ajax({
+			url: "/api/User/getUsername"
+		}).done(function(data){			
+			var x = document.getElementById("username");
+			x.innerHTML = data; 
+		});
+	
+	});
+
 $(document).ready(function() {
 	init();
+	
+	// ============================================================== 
+    // Notification list
+    // ============================================================== 
+    if ($(".notification-list").length) {
+
+        $('.notification-list').slimScroll({
+            height: '250px'
+        });
+
+    }
+
+       
+     // ============================================================== 
+    // tooltip
+    // ============================================================== 
+    if ($('[data-toggle="tooltip"]').length) {
+            
+            $('[data-toggle="tooltip"]').tooltip()
+
+        }
+
+     // ============================================================== 
+    // popover
+    // ============================================================== 
+       if ($('[data-toggle="popover"]').length) {
+            $('[data-toggle="popover"]').popover()
+
+    }
+ 
+	
 });
 
 function init(){
