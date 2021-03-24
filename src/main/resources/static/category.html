@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="css/lib/c3.css">
     <link rel="stylesheet" href="css/modal.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <title>Income</title>
 </head>
 
@@ -90,19 +93,20 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="index.html" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Home</a>
+                                <a class="nav-link" href="index.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="far fa-edit"></i>Expenses</a>
+                                <a class="nav-link" href="index.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="far fa-edit"></i>Expenses</a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="index.html" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Expenses</a>
                             </li>
                              <li class="nav-item ">
-                                <a class="nav-link" href="category.html" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Categories</a>
+                                <a class="nav-link" href="category.html" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-table"></i>Categories</a>
                             </li>
                              <li class="nav-item ">
-                                <a class="nav-link" href="income.html" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Incomes</a>
+                                <a class="nav-link" href="income.html" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-dollar-sign"></i>Incomes</a>
+                            </li>                               
+                                <a class="nav-link" href="stats.html"  aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-chart-bar"></i>Stats</a>
                             </li>
-                             <li class="nav-item ">
-                                <a class="nav-link" href="stats.html"  aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Stats</a>
-                            </li>      
                             
                         </ul>
                     </div>
@@ -135,17 +139,17 @@
                     <div class="ecommerce-widget">
 
                         <div class="row">
-                            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                                 <div class="card">
                                     <h5 class="card-header">Limit breakdown</h5>
                                     <div class="card-body">
-                                        <div id="c3chart_category" style="height: 150px;"></div>
+                                        <div id="c3chart_category" style="height: 178px;"></div>
                                     </div>
                                 </div>
                             </div>
-							<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+							<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                                 <div class="card">
-                                    <h5 class="card-header">Add new category</h5>
+                                    <h5 class="card-header">Add New category</h5>
                                     <div class="card-body">
                                         <div>
 										<div class="form-group">
@@ -156,21 +160,23 @@
                                                 <label>Category Limit: </label>
                                                 <input type="number" min="0" id="limit"></input>
                                                 </div>
-											<button type="button" id="submit">Submit</button>
+											<button type="button" id="submit" class="btn btn-primary block">Submit</button>
 										</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                                 <div class="card">
-                                    <h5 class="card-header">All Category Limit</h5>
+                                    <h5 class="card-header">Total Monthly Limit</h5>
                                     <div class="card-body">
                                         <div>
+                                        <div id="c3chart_category" style="height: 32px;"></div>
 										<div class="form-group">
 											<label>Total Monthly Limit: </label>
 											<input type="text" id="item"></input>
 											</div>
-											<button type="button" id="submit">Submit</button>
+											<div id="c3chart_category" style="height: 32px;"></div>
+											<button type="button" id="submit" class="btn btn-primary block">Submit</button>
 										</div>
                                     </div>
                                 </div>
@@ -230,24 +236,26 @@
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <div>
-            <div class="form-group">
-                <label>Category </label>
-                <input type="text" id="itemModal"></input>
-                </div>
-                <div class="form-group">
-                    <label>limit </label>
-                    <input type="text" id="limitModal"></input>
-                    </div>
-                <button type="button" id="submitModal">Submit</button>
-                <button type="button" id="deleteModal">Delete</button>
-            </div>
-        </div>
+		<div class="modal-content">
+			<div>
+			  <span class="close">&times;</span>
+			  <h3 class="card-header" style="font-weight:bold; margin-bottom: 20px; text-align:center">Modify Category</h3>
+			  <div>
+			    <div class="form-group">
+			    	<b style="font-size:15px;">Category:</b>    
+			        <input type="text" id="itemModal"></input>
+			        </div>
+			        <div class="form-group">
+			    		<b style="font-size:15px;">Limit:</b>    
+			            <input type="text" id="limitModal"></input>
+			            </div>
+			        <button type="button" id="deleteModal" class="btn btn-secondary btn-med">Delete</button>
+			   		<button type="button" id="submitModal" class="btn btn-primary btn-med">Submit</button>
+			    </div>
+			</div>
+		</div>
       
-      </div>
-    <!-- ============================================================== -->
+          <!-- ============================================================== -->
     <!-- end main wrapper  -->
     <!-- ============================================================== -->
     <script src="js/lib/vue.js"></script>
