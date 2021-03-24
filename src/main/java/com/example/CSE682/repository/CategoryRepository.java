@@ -8,10 +8,14 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.example.CSE682.model.Category;
+import com.example.CSE682.model.User;
 
 public interface CategoryRepository extends CrudRepository<Category, Long>{
 
 	List<Category> findAll();
+
+	@Query("select c from Category c where c.user = :user")
+	List<Category> findAllByUser(@Param("user") User user);
 	
 	@Query("select c from Category c where c.categoryid = :id")
 	Category getCategoryById(@Param("id") Long id);

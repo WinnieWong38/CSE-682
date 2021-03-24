@@ -163,7 +163,7 @@ $(document).ready(function() {
 			url: "/api/User/getUsername"
 		}).done(function(data){			
 			var x = document.getElementById("username");
-			x.innerHTML = "logged in as: " + data; 
+			x.innerHTML = data; 
 		});
 	
 	});

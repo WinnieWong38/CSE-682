@@ -27,10 +27,8 @@
 	//function to enable change button only when all fields are populated and the new passwords match
 	function checkReady()
 	{
-		var username = $('#username').val();
-		var oldPassword = $('#oldpassword').val();
-		var newPassword = $('#newpassword').val();
-		var retypePassword = $('#retypepassword').val();
+		var username = document.getElementById("username").innerText;			
+		var oldpassword = $('#oldpassword').val();
 	
 		if(isBlank(username) || isBlank(oldpassword) || !checkMatch())
 		{
@@ -57,7 +55,7 @@
 		//get the data from the form and add to the array
 		var saveObj = {};
 		//saveObj.userid =  parseInt("0");
-		saveObj.username = $('#username').val();		
+		saveObj.username = document.getElementById("username").innerText;		
 		saveObj.oldPassword = $('#oldpassword').val();
 		//saveObj.newPassword = $('#newpassword').val();		
 		console.log(saveObj);

@@ -23,7 +23,9 @@ public interface IExpenseService {
 	
 	public double getTotalCostBetweenTwoDates(String startDate, String endDate);
 	
-	public ArrayList<ArrayList> getTimeseriesChart();
+	double getTotalCostBetweenTwoDatesByCategory(String startDate, String endDate, Long categoryId);
+	
+	public ArrayList<ArrayList<Object>> getTimeseriesChart();
 	
 	public double getTotalExpenseToLimitRatio();
 	

@@ -6,14 +6,16 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
-
 import com.example.CSE682.model.Limit;
+import com.example.CSE682.model.User;
 import com.example.CSE682.model.Category;
 
 public interface LimitRepository extends CrudRepository<Limit, Long>{
 
 	List<Limit> findAll();
+	
+	@Query("select l from Limit l where l.user = :user")
+	List<Limit> findAllByUser(@Param("user") User user);
 	
 	Optional<Limit> findById(Long id);
 	
@@ -22,9 +24,9 @@ public interface LimitRepository extends CrudRepository<Limit, Long>{
 	
 	void deleteById(Long id);
 
-	@Query("select l from Limit l where l.category = :category")
-	Limit getLimitByIdByCategory(@Param("category") Category category);
+	@Query("select l from Limit l where l.category = :category AND l.user = :user")
+	Limit getLimitByIdByCategory(@Param("category") Category category, @Param("user") User user);
 	
-	@Query("select l from Limit l where l.isTotal IS TRUE")
-	Limit getTotalLimit();
+	@Query("select l from Limit l where l.isTotal IS TRUE AND l.user = :user")
+	Limit getTotalLimit(@Param("user") User user);
 }

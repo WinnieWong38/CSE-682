@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,20 +31,16 @@ public class IncomeController {
 		return incomeService.getAllIncomes();
     }
 
-	
 	@PostMapping("/addIncome")
 	public Income addIncome(@RequestBody Income income){
 		return incomeService.save(income);
 	}
 
-	@PostMapping("/editIncome")
-	public Income editIncome(@RequestBody Income income){
-		return incomeService.save(income);
+	@PutMapping("/editIncome/{id}")
+	public Income editIncome(@RequestBody Income income, @PathVariable Long id){
+		return incomeService.edit(income, id);
 	}
-
-	//PutMapping - for edit
-
-	//DeleteMapping - for delete
+	
 	@DeleteMapping("/deleteVal/{id}")
 	void deleteIncome(@PathVariable Long id) {
 		incomeService.delete(id);

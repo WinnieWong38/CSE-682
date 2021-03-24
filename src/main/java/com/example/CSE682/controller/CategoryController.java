@@ -33,17 +33,17 @@ public class CategoryController {
 	}
 	
 	@PutMapping("/editCategory/{id}")
-	public Category editExpense(@RequestBody Category newCategory, @PathVariable Long id) {
+	public Category editCategory(@RequestBody Category newCategory, @PathVariable Long id) {
 	    return categoryService.edit(newCategory, id);
 	}
 	
 	@DeleteMapping("/deleteCategory/{id}")
-	public void deleteExpense(@PathVariable Long id){
+	public void deleteCategory(@PathVariable Long id){
 		categoryService.deleteById(id);
 	}
 	
 	@PostMapping("/addCategory")
-	public Category addExpense(@RequestBody Category category){
+	public Category addCategory(@RequestBody Category category){
 		return categoryService.save(category);
 	}
 }

@@ -181,7 +181,7 @@ function createChart(){
                         addToTable(category.categoryid, category.category, '');
                     }
                     else{
-						var limit = createLimit();
+						var limit = createLimit($('#limitModal').val(), category);
 						$.ajax({
 							url: "/api/limit/editLimit/" + data[0],
 							method: "PUT",
@@ -189,10 +189,9 @@ function createChart(){
 							dataType: "json",
 							data: JSON.stringify(limit)
 						}).done(function(limit){
-							console.error('limit', limit)
+                    		addToTable(category.categoryid, category.category, limit.limit);
 						});
                     }
-                    addToTable(category.categoryid, category.category);
 					createChart();
 					modal.style.display = "none";
 				});
@@ -225,4 +224,15 @@ function createChart(){
 			}
 			}
 		}
+		
+		//get the user name
+	$(document).ready(function() {
+	$.ajax({
+			url: "/api/User/getUsername"
+		}).done(function(data){			
+			var x = document.getElementById("username");
+			x.innerHTML = data; 
+		});
+	
+	});
 		
