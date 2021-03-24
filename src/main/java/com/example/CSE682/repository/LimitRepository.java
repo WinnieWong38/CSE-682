@@ -17,9 +17,6 @@ public interface LimitRepository extends CrudRepository<Limit, Long>{
 	
 	Optional<Limit> findById(Long id);
 	
-//	@Query("select l from limit l")
-//	Limit getLimitById2(Long id);
-	
 	@Query("select l from Limit l where l.limitid = :id")
 	Limit getLimitById(@Param("id") Long id);
 	
@@ -27,4 +24,7 @@ public interface LimitRepository extends CrudRepository<Limit, Long>{
 
 	@Query("select l from Limit l where l.category = :category")
 	Limit getLimitByIdByCategory(@Param("category") Category category);
+	
+	@Query("select l from Limit l where l.isTotal IS TRUE")
+	Limit getTotalLimit();
 }

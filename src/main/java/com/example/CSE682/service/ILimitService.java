@@ -20,5 +20,7 @@ public interface ILimitService {
 	ArrayList<ArrayList> limitBarChar();
 
 	Limit getLimitByIdByCategory(Long id);
+	
+	Limit setTotalLimit(Limit totalLimit);
 
 }

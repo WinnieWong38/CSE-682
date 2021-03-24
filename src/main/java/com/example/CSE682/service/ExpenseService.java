@@ -13,9 +13,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.CSE682.model.Category;
 import com.example.CSE682.model.Expense;
+import com.example.CSE682.model.Limit;
 import com.example.CSE682.repository.CategoryRepository;
 import com.example.CSE682.repository.ExpenseRepository;
-import com.example.CSE682.repository.IncomeRepository;
+import com.example.CSE682.repository.LimitRepository;
 
 @Service
 public class ExpenseService implements IExpenseService{
@@ -27,7 +28,7 @@ public class ExpenseService implements IExpenseService{
 	CategoryRepository categoryRepository;
 	
 	@Autowired
-	IncomeRepository incomeRepository;
+	LimitRepository limitRepository;
 	
 	@Override
     public List<Expense> getAll() {
@@ -129,7 +130,7 @@ public class ExpenseService implements IExpenseService{
 				} catch (Exception e) {
 					// No data for a given month results in a null return from the expenseRepository
 					// Return null so the timeseries chart does not plot a point for the given month
-					costs_per_month.add(null);
+					costs_per_month.add(0);
 				}
 			}
 			chart.add(costs_per_month);
@@ -139,10 +140,13 @@ public class ExpenseService implements IExpenseService{
 	}
 	
 	@Override
-	public double getTotalExpenseToIncomeRatio() {
+	public double getTotalExpenseToLimitRatio() {
 		double total_expense = expenseRepository.getTotalCost();
-		double total_income = incomeRepository.getTotalIncome();
+		Limit total_limit = limitRepository.getTotalLimit();
+		if (total_limit == null) {
+			return -1;
+		}
 		
-		return total_expense / total_income * 100;
+		return total_expense / total_limit.getLimit() * 100;
 	}
 }

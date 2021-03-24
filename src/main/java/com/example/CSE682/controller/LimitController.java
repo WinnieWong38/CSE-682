@@ -39,17 +39,15 @@ public class LimitController {
 		return limitService.save(limit);
 	}
 	
-	//PutMapping - for edit
 	@PutMapping("/editLimit/{id}")
-	  Limit editLimit(@RequestBody Limit newLimit, @PathVariable Long id) {
-	    return limitService.edit(newLimit, id);
-	  }
+	Limit editLimit(@RequestBody Limit newLimit, @PathVariable Long id) {
+		return limitService.edit(newLimit, id);
+	}
 	
-	//DeleteMapping - for delete
-	 @DeleteMapping("/deleteLimit/{id}")
-	  void deleteLimit(@PathVariable Long id) {
-		 limitService.delete(id);
-	  }
+	@DeleteMapping("/deleteLimit/{id}")
+	void deleteLimit(@PathVariable Long id) {
+		limitService.delete(id);
+	}
 	 
 	@GetMapping("/getLimitAndCategoriesAndExpenses")
 	public ArrayList<ArrayList> getLimitAndCategoriesAndExpenses() {
@@ -61,5 +59,9 @@ public class LimitController {
 		return limitService.getLimitByIdByCategory(id);
 	}
 	 
+	@PostMapping("/setTotalLimit")
+	public Limit setTotalLimit(@RequestBody Limit totalLimit) {
+		return limitService.setTotalLimit(totalLimit);
+	}
 }
 
