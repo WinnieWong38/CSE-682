@@ -102,7 +102,7 @@ public class LimitService implements ILimitService{
 
 	@Override
 	public Limit getTotalLimit(){
-		return limitRepository.getTotalLimit();
+		return limitRepository.getTotalLimit(userService.getLoggedinUser());
 	}
 }
 
