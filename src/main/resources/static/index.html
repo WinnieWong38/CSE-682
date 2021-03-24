@@ -10,8 +10,10 @@
     <link rel="stylesheet" href="css/lib/fontawesome-all.css">
     <link rel="stylesheet" href="css/lib/c3.css">
     <link rel="stylesheet" href="css/modal.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <title>Budget App</title>
 </head>
 
@@ -90,19 +92,16 @@
                                 Menu
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="index.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Home</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="index.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Expenses</a>
+                                <a class="nav-link" href="index.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="far fa-edit"></i>Expenses</a>
                             </li>
                              <li class="nav-item ">
-                                <a class="nav-link" href="category.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Categories</a>
+                                <a class="nav-link" href="category.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-table"></i>Categories</a>
                             </li>
                              <li class="nav-item ">
-                                <a class="nav-link" href="income.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Incomes</a>
+                                <a class="nav-link" href="income.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-dollar-sign"></i>Incomes</a>
                             </li>
                              <li class="nav-item ">
-                                <a class="nav-link" href="stats.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Stats</a>
+                                <a class="nav-link" href="stats.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-chart-bar"></i>Stats</a>
                             </li>
                              <li class="nav-item ">
                                 <a class="nav-link" href="changepwd.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Change Password</a>
@@ -131,7 +130,7 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
-                                <h2 class="pageheader-title">Expenses</h2>
+                                <h1 class="pageheader-title">Expenses</h1>
 								<hr />
                             </div>
                         </div>
@@ -142,40 +141,40 @@
                     <div class="ecommerce-widget">
 
                         <div class="row">
-                            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
                                 <div class="card">
-                                    <h5 class="card-header">Expense breakdown</h5>
+                                    <h3 class="card-header">Expense Breakdown</h3>
                                     <div class="card-body">
-                                        <div id="c3chart_category" style="height: 150px;"></div>
+                                        <div id="c3chart_category" style="height: 250px;"></div>
                                     </div>
                                 </div>
                             </div>
-							<div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
+							<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
                                 <div class="card">
-                                    <h5 class="card-header">Add new expense</h5>
+                                    <h3 class="card-header">Add New Expense</h3>
                                     <div class="card-body">
                                         <div>
 										<div class="form-group">
-											<label>Item: </label>
+											<label style="font-weight:bold">Item: </label>
 											<input type="text" id="item"></input>
 											</div>
 											<div class="form-group">
-											<label>Category: </label>
+											<label style="font-weight:bold">Category: </label>
 											<select type="text" id="category"></select>
 											</div>
 											<div class="form-group">
-											<label>Price: </label>
+											<label style="font-weight:bold">Price: </label>
 											<input type="number" min="0" id="price"></input>
                                             </div>
                                             <div class="form-group">
-                                            <label>Date: </label>
+                                            <label style="font-weight:bold">Date: </label>
                                             <input type="date" id="date"></input>
                                             </div>
                                             <div class="form-group">
-                                            <label>Paid: </label>
+                                            <label style="font-weight:bold">Paid: </label>
                                             <input type="checkbox" id="isPaid"></input>
                                             </div>
-											<button type="button" id="submit">Submit</button>
+											<button type="button" id="submit" class="btn btn-primary block">Submit</button>
 										</div>
                                     </div>
                                 </div>
@@ -190,18 +189,18 @@
                             <!-- ============================================================== -->
                             <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
                                 <div class="card">
-                                    <h5 class="card-header">Expense Table</h5>
+                                    <h3 class="card-header">Expense Table</h3>
 									<div class="card-body">
 										<div>
 											<table id="example" class="display" style="width:100%">
 												<thead>
 													<tr>
-                                                        <th>id</th>
-														<th>Item</th>
-														<th>Category</th>
-                                                        <th>Price</th>
-                                                        <th>Date</th>
-                                                        <th>Paid</th>
+                                                        <th style="font-weight:bold">id</th>
+														<th style="font-weight:bold">Item</th>
+														<th style="font-weight:bold">Category</th>
+                                                        <th style="font-weight:bold">Price</th>
+                                                        <th style="font-weight:bold">Date</th>
+                                                        <th style="font-weight:bold">Paid</th>
 													</tr>
 												</thead>
 											</table>
@@ -243,32 +242,35 @@
 
     <!-- Modal content -->
     <div class="modal-content">
-      <span class="close">&times;</span>
       <div>
+      <span class="close">&times</span>
+      <h3 class="card-header" style="font-weight:bold; margin-bottom: 20px; text-align:center">Modify Expense</h3>
         <div class="form-group">
-            <label>Item: </label>
+            <b style="font-size:15px;">Item:</b>    
             <input type="text" id="itemModal"></input>
             </div>
             <div class="form-group">
-            <label>Category: </label>
+            <b style="font-size:15px;">Category:</b>   
             <select type="text" id="categoryModal"></select>
             </div>
             <div class="form-group">
-            <label>Price: </label>
+            <b style="font-size:15px;">Price:</b>   
             <input type="number" min="0" id="priceModal"></input>
             </div>
             <div class="form-group">
-            <label>Date: </label>
+            <b style="font-size:15px;">Date:</b>   
             <input type="date" id="dateModal"></input>
             </div>
             <div class="form-group">
-            <label>Paid: </label>
+            <b style="font-size:15px;">Paid:</b>   
             <input type="checkbox" id="isPaidModal"></input>
             </div>
-            <button type="button" id="submitModal">Submit</button>
-            <button type="button" id="deleteModal">Delete</button>
+            <button type="button" id="deleteModal" class="btn btn-secondary btn-med">Delete</button>
+            <button type="button" id="submitModal" class="btn btn-primary btn-med">Submit</button>
         </div>
     </div>
+
+
   
   </div>
     <script src="js/lib/vue.js"></script>
