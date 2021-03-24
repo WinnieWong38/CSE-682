@@ -104,6 +104,12 @@
                              <li class="nav-item ">
                                 <a class="nav-link" href="stats.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-chart-bar"></i>Stats</a>
                             </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="changepwd.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-key"></i>Change Password</a>
+                            </li>
+                             <li class="nav-item ">
+                                <a class="nav-link" href="logout" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                            </li>
                             
                         </ul>
                     </div>
@@ -151,11 +157,11 @@
                                         <div id="c3chart_category" style="height: 10px;"></div>
                                         <div>
 										<div class="form-group">
-											<label>Description: </label>
+											<label style="font-weight:bold">Description: </label>
 											<input type="text" id="description"></input>
 											</div>
 											<div class="form-group">
-											<label>Income: </label>
+											<label style="font-weight:bold">Income: </label>
 											<input type="number" min="0" id="income"></input>
 											</div>
 											<div id="c3chart_category" style="height: 10px;"></div>
@@ -220,6 +226,29 @@
     <!-- ============================================================== -->
     <!-- end main wrapper  -->
     <!-- ============================================================== -->
+    
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div>
+      <span class="close">&times</span>
+      <h3 class="card-header" style="font-weight:bold; margin-bottom: 20px; text-align:center">Modify Category</h3>
+        <div class="form-group">
+            <b style="font-size:15px;">Description:</b>    
+            <input type="text" id="descriptionModal"></input>
+            </div>
+            <div class="form-group">
+            <b style="font-size:15px;">Income:</b>   
+            <select type="text" id="incomeModal"></select>
+            </div>
+            <button type="button" id="deleteModal" class="btn btn-secondary btn-med">Delete</button>
+            <button type="button" id="submitModal" class="btn btn-primary btn-med">Submit</button>
+        </div>
+    </div>
+    
+    </div>
     <script src="js/lib/vue.js"></script>
     <script src="js/lib/jquery-3.3.1.min.js"></script>
     <script src="js/lib/c3.min.js"></script>
@@ -227,6 +256,9 @@
     <script src="js/lib/C3chartjs.js"></script>
     <script src="js/income.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	
+	
 </body>
+</html>
  
 </html>
