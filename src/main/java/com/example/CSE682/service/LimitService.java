@@ -94,9 +94,15 @@ public class LimitService implements ILimitService{
 			total_limit_repository = limitRepository.save(totalLimit);
 		} else {
 			total_limit_repository.setLimit(totalLimit.getLimit());
+			total_limit_repository = limitRepository.save(total_limit_repository);
 		}
 		
 		return total_limit_repository;
+	}
+
+	@Override
+	public Limit getTotalLimit(){
+		return limitRepository.getTotalLimit();
 	}
 }
 

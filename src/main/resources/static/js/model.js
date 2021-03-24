@@ -15,9 +15,10 @@ function createCategory (categoryId, category) {
 	return obj;
 }
 
-function createLimit(limit, category){
+function createLimit(limit, category, isTotal){
 	var obj = {};
 	obj.limit = parseInt(limit);
 	obj.category = category;
+	obj.isTotal = isTotal;
 	return obj;
 }
