@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.CSE682.repository.LimitRepository;
 import com.example.CSE682.model.Limit;
+import com.example.CSE682.model.User;
 import com.example.CSE682.model.Category;
 
 import com.example.CSE682.service.IExpenseService;
@@ -25,9 +26,12 @@ public class LimitService implements ILimitService{
 	@Autowired
 	ICategoryService categoryService;
 	
+	@Autowired
+	IUserService userService;
+	
 	@Override
 	public List<Limit> getAll(){
-		return limitRepository.findAll();
+		return limitRepository.findAllByUser(userService.getLoggedinUser());
 	}
 	
 	@Override
@@ -35,9 +39,9 @@ public class LimitService implements ILimitService{
 		return limitRepository.getLimitById(id);
 	}
 	
-	
 	@Override 
 	public Limit save(Limit limit) {
+		limit.setUser(userService.getLoggedinUser());
 		return limitRepository.save(limit);
 	}
 	
@@ -46,14 +50,12 @@ public class LimitService implements ILimitService{
 		Limit limit = limitRepository.getLimitById(id);
 		limit.setLimit(newLimit.getLimit());
 		limit.setCategory(newLimit.getCategory());
-//		limit.setLimitId(newLimit.getLimitId());
 	    return limitRepository.save(limit);
 	}
 	
 	@Override
 	public void delete(Long id) {
 		limitRepository.deleteById(id);
-
 	}
 
 	@Override
@@ -62,7 +64,8 @@ public class LimitService implements ILimitService{
 		ArrayList<String> categories = new ArrayList<>();
 		ArrayList<Double> expenses = new ArrayList<>();
 		ArrayList<Double> limits = new ArrayList<>();
-		for(Limit limit : getAll()){
+		
+		for(Limit limit : limitRepository.findAllByUser(userService.getLoggedinUser())){
 			categories.add(limit.getCategory().getCategory());
 			limits.add(limit.getLimit());
 			expenses.add(expenseService.getTotalCostByCategory(limit.getCategory().getCategoryid()));
@@ -75,14 +78,14 @@ public class LimitService implements ILimitService{
 	}
 
 	@Override
-	public Limit getLimitByIdByCategory(Long id) {
-		Category category = categoryService.getCategoryById(id);
-		return limitRepository.getLimitByIdByCategory(category);
+	public Limit getLimitByIdByCategory(Long categoryId) {
+		Category category = categoryService.getCategoryById(categoryId);
+		return limitRepository.getLimitByIdByCategory(category, userService.getLoggedinUser());
 	}
 	
 	@Override
 	public Limit setTotalLimit(Limit totalLimit) {
-		Limit total_limit_repository = limitRepository.getTotalLimit();
+		Limit total_limit_repository = limitRepository.getTotalLimit(userService.getLoggedinUser());
 		if (total_limit_repository == null) {
 			total_limit_repository = limitRepository.save(totalLimit);
 		} else {

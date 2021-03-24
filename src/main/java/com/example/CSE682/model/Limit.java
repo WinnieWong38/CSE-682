@@ -29,12 +29,23 @@ public class Limit {
 	@Column(name="isTotal", nullable=false, unique=false)
 	private boolean isTotal;
 	
+	@ManyToOne
+	@JoinColumn(name="userid", referencedColumnName="id")
+	private User user;
+	
 	public Limit() {}
 	
 	public Limit(Double limit, Category category, boolean isTotal) {
 		this.limit = limit;
 		this.category = category;
 		this.isTotal = isTotal;
+	}
+	
+	public Limit(Double limit, Category category, boolean isTotal, User user) {
+		this.limit = limit;
+		this.category = category;
+		this.isTotal = isTotal;
+		this.user = user;
 	}
 
 	public Long getLimitId() {
@@ -67,5 +78,13 @@ public class Limit {
 	
 	public void setIsTotal(boolean isTotal) {
 		this.isTotal = isTotal;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

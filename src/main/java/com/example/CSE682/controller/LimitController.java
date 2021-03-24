@@ -49,15 +49,15 @@ public class LimitController {
 		limitService.delete(id);
 	}
 	 
-	@GetMapping("/getLimitAndCategoriesAndExpenses")
-	public ArrayList<ArrayList> getLimitAndCategoriesAndExpenses() {
-		return limitService.limitBarChar();
-	}
+	 @GetMapping("/getLimitAndCategoriesAndExpenses")
+	 public ArrayList<ArrayList> getLimitAndCategoriesAndExpenses() {
+		 return limitService.limitBarChar();
+	 }
 	
-	@GetMapping("/getLimitByCategory/{id}")
-	public Limit getLimitByCategory(@PathVariable Long id) {
-		return limitService.getLimitByIdByCategory(id);
-	}
+	 @GetMapping("/getLimitByCategory/{categoryId}")
+	 public Limit getLimitByCategory(@PathVariable Long categoryId) {
+		 return limitService.getLimitByIdByCategory(categoryId);
+	 }
 	 
 	@PostMapping("/setTotalLimit")
 	public Limit setTotalLimit(@RequestBody Limit totalLimit) {

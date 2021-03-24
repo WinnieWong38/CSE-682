@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.CSE682.model.User;
+import com.example.CSE682.service.ICategoryService;
 import com.example.CSE682.service.IUserService;
 
 @RestController
@@ -26,13 +27,10 @@ public class UserController {
 	IUserService userService;
 	
 	@Autowired
-    private PasswordEncoder passwordEncoder;
+	ICategoryService categoryService;
 	
-	/*@GetMapping("/getUsers")
-    public List<UserAccount> getUsers() {
-		return userDetails.getAll();
-    }	
-	*/
+	@Autowired
+    private PasswordEncoder passwordEncoder;
 	
 	@PostMapping("/addUser")
 	public User addUser(@RequestBody User user){
@@ -40,7 +38,10 @@ public class UserController {
 		user.setRole("user");
 		//encode the password
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		return userService.save(user);		
+		User newUser = userService.save(user);
+		
+		categoryService.addDefaultCategories(user);
+		return newUser;
 	}
 	
 	//for authentication
@@ -67,25 +68,4 @@ public class UserController {
 		//make sure that the old password is valid
 		return userService.checkPwd(username, oldPassword);		
 	}
-	
-	
-	//PutMapping - for edit
-	
-	//DeleteMapping - for delete
-/*	@DeleteMapping("/deleteVal/{id}")
-	  void deleteLimit(@PathVariable Long id) {
-		userService.delete(id);
-	  }
-	
-	@PostMapping("/checkUser")
-	public boolean addUser(@RequestBody String user,@RequestBody String pwd){
-		return userService.checkUser(user, pwd);
-	}
-	
-	@GetMapping("/getIdByUserName/{username}")
-	public Long GetIdByUserName(@PathVariable String username)
-	{
-		return userService.getIdByUserName(username);
-	}
-	*/
 }
