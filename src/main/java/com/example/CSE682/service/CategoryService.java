@@ -52,14 +52,12 @@ public class CategoryService implements ICategoryService{
 	@Override
 	public void addDefaultCategories(User user) {
 		Category rent = new Category("Rent", user);
-		save(rent);
+		categoryRepository.save(rent);
 		Category food = new Category("Food", user);
-		save(food);
+		categoryRepository.save(food);
 		Category transportation = new Category("Transportation", user);
-		save(transportation);
+		categoryRepository.save(transportation);
 		Category entertainment = new Category("Entertainment", user);
-		save(entertainment);
+		categoryRepository.save(entertainment);
 	}
-	
-
 }

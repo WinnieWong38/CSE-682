@@ -160,7 +160,7 @@ function createChart(){
                         addToTable(category.categoryid, category.category, '');
                     }
                     else{
-						var limit = createLimit();
+						var limit = createLimit($('#limitModal').val(), category);
 						$.ajax({
 							url: "/api/limit/editLimit/" + data[0],
 							method: "PUT",
@@ -169,9 +169,9 @@ function createChart(){
 							data: JSON.stringify(limit)
 						}).done(function(limit){
 
+                    		addToTable(category.categoryid, category.category, limit.limit);
 						});
                     }
-                    addToTable(category.categoryid, category.category);
 					createChart();
 					modal.style.display = "none";
 				});

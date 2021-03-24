@@ -47,7 +47,11 @@ public class LimitService implements ILimitService{
 	
 	@Override
 	public Limit edit(Limit newLimit, Long id) {
-		Limit limit = limitRepository.getLimitById(id);
+		Limit limit = limitRepository.getLimitByIdByCategory(newLimit.getCategory(), userService.getLoggedinUser());
+		if (limit == null) {
+			newLimit.setUser(userService.getLoggedinUser());
+			return limitRepository.save(newLimit);
+		}
 		limit.setLimit(newLimit.getLimit());
 		limit.setCategory(newLimit.getCategory());
 	    return limitRepository.save(limit);
