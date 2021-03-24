@@ -38,6 +38,7 @@
     - 2.14. Pagination
     - 2.15. Switch Toogle
     - 2.16. Spinner
+    - 2.17 	Vertical Pills
 
 
     ----------------------------
@@ -156,12 +157,12 @@
    ========================================================================== */
 
 body {
-    font-family: 'Circular Std Book';
+    font-family:"Trebuchet MS";
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
     color: #71748d;
-    background-color: #efeff6;
+    background: linear-gradient(0.25turn, #7fb8d0, #ebf8e1, #f9c792);
     -webkit-font-smoothing: antialiased;
 }
 
@@ -173,7 +174,7 @@ h5,
 h6 {
     color: #3d405c;
     margin: 0px 0px 15px 0px;
-    font-family: 'Circular Std Medium';
+    font-family: 'Circular Std Book';
 }
 
 h1 {
@@ -1240,8 +1241,9 @@ Top Header
     padding: 11px 20px;
     font-size: 30px;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: bold;
     color: #007bff;
+    font-family: "Lucida Grande";
 }
 .navbar-brand:hover{
     color: #007bff;
@@ -1813,18 +1815,22 @@ Leftsidebar - dark
 
 .sidebar-dark .nav-divider {
     color: #a4aadb;
-    font-size: 12px;
+    font-size:16px;
     letter-spacing: 1px;
 }
 
 .sidebar-dark.nav-left-sidebar .nav-link i {
     color: #7a80b4;
+    font-size:20px;
 }
 
-.sidebar-dark.nav-left-sidebar .navbar-nav .nav-item {}
+.sidebar-dark.nav-left-sidebar .navbar-nav .nav-item {
+	font-size:20px;
+}
 
 .sidebar-dark.nav-left-sidebar .navbar-nav .nav-link {
     color: #7a80b4;
+    font-size:16px;
 }
 
 .sidebar-dark.nav-left-sidebar .navbar-nav .nav-link:focus,
@@ -2032,7 +2038,7 @@ Pageheader
     padding-right: .5rem;
     color: #b1b1c0;
     content: "\f105";
-    font-family: 'Font Awesome\ 5 Free';
+    font-family: 'Circular Std Book';
     font-weight: 600;
 }
 
@@ -2041,8 +2047,11 @@ Pageheader
 }
 
 .pageheader-title {
-    font-size: 24px;
+    font-size: 30px;
+    font-weight: bold;
     margin-bottom: 8px;
+    font-family: "Trebuchet MS";
+    color: black;
 }
 
 .pageheader-text {
@@ -2333,7 +2342,7 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
     background-color: #59b3ff;
     padding: 31px 15px;
     text-align: center;
-    left: 10px;  font-family: 'Circular Std Medium'; color: #fff;}
+    left: 10px;  font-family: 'Circular Std Book'; color: #fff;}
 
    .ribbons-text{transform: rotate(90deg);
     position: absolute;
@@ -2360,7 +2369,7 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 .product-rating{font-size: 12px;
 
     color: #ffa811;}
-.product-price{ position: absolute; top: 0; right: 0; font-size: 16px; color: #3d405c;font-family: 'Circular Std Medium'; line-height: 1;}
+.product-price{ position: absolute; top: 0; right: 0; font-size: 16px; color: #3d405c;font-family: 'Circular Std Book'; line-height: 1;}
 .product-btn{}
 .product-del{font-size: 14px; color: #71748d;}
 .product-sidebar{ background-color: #fff; border:1px solid #e6e6f2;  }
@@ -2443,7 +2452,7 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 .product-colors label:before {
      content: "\f00c";
     position: absolute;
-    font-family: 'Font Awesome\ 5 Free';
+    font-family: 'Circular Std Book';
     font-weight: 900;
     padding: 0px;
     margin: 4px 8px;
@@ -2661,9 +2670,9 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 }
 
 .btn-primary:hover {
-    color: #fff;
-    background-color: #4656e9;
     border-color: #4656e9;
+    background-color: #ddd;
+  	color: black;
 }
 
 .btn-primary.focus,
@@ -2698,9 +2707,9 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 }
 
 .btn-secondary:hover {
-    color: #fff;
-    background-color: #f0346e;
-    border-color: #f0346e;
+    border-color: #4656e9;
+    background-color: #ddd;
+  	color: black;
 }
 
 .btn-secondary.focus,
@@ -2945,9 +2954,9 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 }
 
 .btn-outline-secondary:hover {
-    color: #fff;
-    background-color: #ff407b;
-    border-color: #ff407b;
+	border-color: #4656e9;
+    background-color: #ddd;
+  	color: black;
 }
 
 .btn-outline-secondary.focus,
@@ -3117,9 +3126,34 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
     font-size: 14px;
 }
 
+.btn-med {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
 .btn-lg {
     padding: 11px 20px;
     font-size: 15px;
+}
+
+.block {
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 10px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.block-sm {
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
 }
 
 
@@ -3204,15 +3238,19 @@ btn-link
 
 .card {
     margin-bottom: 30px;
-    border: none;
     -webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
     -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
     box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
+    border-radius: 10px;
 }
 
 .card-header {
-    background-color: #fff;
-    border-bottom: 1px solid #e6e6f2;
+    background-color: #e0ebfe;
+    border-bottom: 1px solid #3d405c;
+    border-top: 1px solid #3d405c;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: "Trebuchet MS";
 }
 
 .card-title {}
@@ -4512,8 +4550,8 @@ Pills vertical
 
 .table thead th,
 .table th {
-    color: #3d405c;
-    font-family: 'Circular Std Medium';
+    color: #4285f4;
+    font-family: 'Circular Std Book';
 }
 
 .table-bordered {
@@ -4545,8 +4583,8 @@ tr.group,
 tr.group:hover {
     background-color: #5969ff !important;
     color: #fff;
-    font-family: 'Circular Std Medium';
     font-size: 18px;
+    font-family: 'Circular Std Book';
 }
 
 
@@ -5498,7 +5536,7 @@ Vertical Timeline - by CodyHouse.co
     height: 7em;
     font-size: 0.75em;
     line-height: 1.333333em;
-    font-family: Consolas, monospace;
+    font-family: 'Circular Std Book';
     padding: 5px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
