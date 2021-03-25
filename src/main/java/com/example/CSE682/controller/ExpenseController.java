@@ -3,8 +3,6 @@ package com.example.CSE682.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,14 +55,12 @@ public class ExpenseController {
 	
 	@GetMapping("/getTotalCostByCategory/{id}")
     public double getTotalCostByCategory(@PathVariable Long id) {
-		return expenseService.getTotalCostByCategory(id);
+		return expenseService.getTotalCostCurrentMonthByCategoryId(id);
     }
 	
-	@PostMapping("/getTotalCostBetweenTwoDates")
-	public double getTotalCostBetweenTwoDates(HttpServletRequest request) {
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
-		return expenseService.getTotalCostBetweenTwoDates(startDate, endDate);
+	@PostMapping("/getTotalCostCurrentMonth")
+	public double getTotalCostCurrentMonth() {
+		return expenseService.getTotalCostCurrentMonth();
 	}
 	
 	@GetMapping("/getTotalCostCurrentMonthByCategory")

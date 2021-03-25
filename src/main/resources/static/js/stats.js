@@ -52,7 +52,7 @@ function createMonthlyTrend(){
     }).done(function(data){
         console.error('data', data)
         var monthlyTrendChart = c3.generate({
-            bindto: "#montlyTrend",
+            bindto: "#monthlyTrend",
             data: {
                 x: 'Dates',
                 columns: data
@@ -79,7 +79,7 @@ function createBar(){
             bindto: "#expensetoLimitRatio",
             data: {
                 columns: [
-                    ['Ratio', data]
+                    ['Ratio (%)', data]
                 ],
                 type: 'bar'
             },

@@ -17,11 +17,11 @@ public interface IExpenseService {
 	
 	double getTotalCost();
 	
-	double getTotalCostByCategory(Long id);
+	double getTotalCostCurrentMonthByCategoryId(Long id);
 	
 	Expense edit(Expense newExpense, Long id);
 	
-	public double getTotalCostBetweenTwoDates(String startDate, String endDate);
+	public double getTotalCostCurrentMonth();
 	
 	ArrayList<ArrayList<Object>> getTotalCostCurrentMonthByCategory();
 	

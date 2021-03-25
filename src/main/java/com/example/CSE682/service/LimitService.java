@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.CSE682.repository.LimitRepository;
 import com.example.CSE682.model.Limit;
-import com.example.CSE682.model.User;
 import com.example.CSE682.model.Category;
 
 import com.example.CSE682.service.IExpenseService;
@@ -72,7 +71,7 @@ public class LimitService implements ILimitService{
 		for(Limit limit : limitRepository.findAllByUser(userService.getLoggedinUser())){
 			categories.add(limit.getCategory().getCategory());
 			limits.add(limit.getLimit());
-			expenses.add(expenseService.getTotalCostByCategory(limit.getCategory().getCategoryid()));
+			expenses.add(expenseService.getTotalCostCurrentMonthByCategoryId(limit.getCategory().getCategoryid()));
 		}
 		
 		returnList.add(limits);
