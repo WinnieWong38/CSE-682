@@ -117,11 +117,12 @@
 							<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                                 <div class="card">
                                     <h5 class="card-header">Add New category</h5>
-                                    <div class="card-body">
+                                    <div class="card-body" id="categoryCardBody">
                                         <div>
 										<div class="form-group">
 											<label style="font-weight:bold">Category: </label>
 											<input type="text" id="category"></input>
+                                            <div id="duplicateText"></div>
 											</div>
                                             <div class="form-group">
                                                 <label style="font-weight:bold">Category Limit: </label>
@@ -135,12 +136,12 @@
                             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                                 <div class="card">
                                     <h5 class="card-header">Total Monthly Limit</h5>
-                                    <div class="card-body">
+                                    <div class="card-body" id="totalCardBody">
                                         <div>
                                         <div id="c3chart_category" style="height: 32px;"></div>
 										<div class="form-group">
 											<label style="font-weight:bold">Total Monthly Limit: </label>
-											<input type="text" id="totalLimit"></input>
+											<input type="number" min="0" id="totalLimit"></input>
 											</div>
 											<div id="c3chart_category" style="height: 32px;"></div>
 											<button type="button" id="submitTotal" class="btn btn-primary block">Submit</button>
@@ -207,14 +208,15 @@
 			<div>
 			  <span class="close">&times;</span>
 			  <h3 class="card-header" style="font-weight:bold; margin-bottom: 20px; text-align:center">Modify Category</h3>
-			  <div>
+			  <div id = "categoryModal">
 			    <div class="form-group">
 			    	<b style="font-size:15px;">Category:</b>    
 			        <input type="text" id="itemModal"></input>
+                    <div id="duplicateTextModal"></div>
 			        </div>
 			        <div class="form-group">
 			    		<b style="font-size:15px;">Limit:</b>    
-			            <input type="text" id="limitModal"></input>
+			            <input type="number" min="0" id="limitModal"></input>
 			            </div>
 			        <button type="button" id="removeLimitModal" class="btn btn-secondary btn-med">Remove Limit</button>
 			   		<button type="button" id="submitModal" class="btn btn-primary btn-med">Submit</button>

@@ -1,5 +1,7 @@
 var table;
 var chart;
+var button = false;
+var buttonModal = true;
 
 $(document).ready(function() {
 	init();
@@ -144,7 +146,12 @@ function createChart(){
 		function enableListeners(){
 			//Add new expense
 			$('#submit').off('click').on('click', function(){
+				if(button){
 				var expense = createExpense($('#item').val(), createCategory($('#category option:selected').val(), $('#category option:selected').text()), $('#price').val(), $('#date').val(), $('#isPaid').prop('checked'));
+				$('#item').val('');
+					$('#price').val('');
+					$('#submit').addClass('disabled');
+					button = false;
 				$.ajax({
 					url: "/api/expense/addExpense",
 					method: "POST",
@@ -161,12 +168,10 @@ function createChart(){
 						expense.isPaid ? "<i class='fas fa-check'></i>" : ""
 					]).draw( false );
 					createChart();
-					$('#item').val('');
-					$('#price').val('');
-					$('#submit').addClass('disabled');
 				}).fail(function(){
 					alert('Invalid entry');
 				});
+			}
 			
 			});
 
@@ -174,9 +179,22 @@ function createChart(){
 			$('.card-body').off('change input').on('change input', function(){
 				if(!isBlank($('#item').val()) && !isBlank($('#price').val()) && !isBlank($('#date').val())){
 					$('#submit').removeClass('disabled');
+					button = true;
 				}
 				else{
 					$('#submit').addClass('disabled');
+					button = false;
+				}
+			});
+
+			$('#expenseModalForm').off('change input').on('change input', function(){
+				if(!isBlank($('#itemModal').val()) && !isBlank($('#priceModal').val()) && !isBlank($('#dateModal').val())){
+					$('#submitModal').removeClass('disabled');
+					buttonModal = true;
+				}
+				else{
+					$('#submitModal').addClass('disabled');
+					buttonModal = false;
 				}
 			});
 		}
@@ -195,6 +213,7 @@ function createChart(){
 			});
 
 			$('#submitModal').off('click').on('click', function(){
+				if(buttonModal){
 				var expense = createExpense($('#itemModal').val(), createCategory($('#categoryModal option:selected').val(), $('#categoryModal option:selected').text()), $('#priceModal').val(), $('#dateModal').val(), $('#isPaidModal').prop('checked'));
 				$.ajax({
 					url: "/api/expense/editExpense/" + data[0],
@@ -215,6 +234,7 @@ function createChart(){
 					createChart();
 					modal.style.display = "none";
 				});
+			}
 			});
 
 			$('#deleteModal').off('click').on('click', function(){
