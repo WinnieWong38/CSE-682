@@ -72,20 +72,22 @@ function createMonthlyTrend(){
 
 function createBar(){
     $.ajax({
-        url: "/api/expense/getTotalExpenseToLimitRatio",
+        url: "/api/expense/getMonthlySummaryBar",
     }).done(function(data){
         console.error('data2', data)
         gaugeChart = c3.generate({
-            bindto: "#expensetoLimitRatio",
+            bindto: "#monthlySummaryBar",
             data: {
                 columns: [
-                    ['Ratio (%)', data]
+                    ['Total Expenses This Month', data[0]],
+                    ['Total Monthly Limit', data[1]],
+                    ['Total Monthly Income', data[2]]
                 ],
                 type: 'bar'
             },
             bar: {
                 width: {
-                    ratio: 0.5 // this makes bar width 50% of length between ticks
+                    ratio: 1.0 // this makes bar width 50% of length between ticks
                 }
                 // or
                 //width: 100 // this makes bar width 100px

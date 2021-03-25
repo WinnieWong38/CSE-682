@@ -74,9 +74,9 @@ public class ExpenseController {
 		return expenseService.getTimeseriesChart();
 	}
 	
-	@GetMapping("/getTotalExpenseToLimitRatio")
-	public double getTotalExpenseToLimitRatio() {
-		return expenseService.getTotalExpenseToLimitRatio();
+	@GetMapping("/getMonthlySummaryBar")
+	public ArrayList<Double> getMonthlySummaryBar() {
+		return expenseService.getMonthlySummaryBar();
 	}
 	
 	

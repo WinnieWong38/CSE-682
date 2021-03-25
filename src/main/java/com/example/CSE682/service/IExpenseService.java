@@ -27,6 +27,6 @@ public interface IExpenseService {
 	
 	public ArrayList<ArrayList<Object>> getTimeseriesChart();
 	
-	public double getTotalExpenseToLimitRatio();
+	public ArrayList<Double> getMonthlySummaryBar();
 	
 }
