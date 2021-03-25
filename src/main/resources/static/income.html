@@ -110,7 +110,7 @@
                                 <div class="card">
                                     <h3 class="card-header">Income Breakdown</h3>
                                     <div class="card-body">
-                                        <div id="c3chart_category" style="height: 150px;"></div>
+                                        <div id="c3chart_Income" style="height: 150px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +118,6 @@
                                 <div class="card">
                                     <h3 class="card-header">Add New Income</h3>
                                     <div class="card-body">
-                                        <div id="c3chart_category" style="height: 10px;"></div>
                                         <div>
 										<div class="form-group">
 											<label style="font-weight:bold">Description: </label>
@@ -128,7 +127,6 @@
 											<label style="font-weight:bold">Item: </label>
 											<input type="number" min="0" id="income"></input>
 											</div>
-											<div id="c3chart_category" style="height: 10px;"></div>
 											<button type="button" id="submit" class="btn btn-primary block">Submit</button>
 										</div>
                                     </div>
@@ -153,7 +151,6 @@
 														<th style="font-weight:bold">id</th>
 														<th style="font-weight:bold">Description</th>														
 														<th style="font-weight:bold">Income</th>
-														<th style="font-weight:bold">Delete</th>
 													</tr>
 												</thead>
 											</table>
@@ -205,14 +202,12 @@
             </div>
             <div class="form-group">
             <b style="font-size:15px;">Income:</b>   
-            <select type="text" id="incomeModal"></select>
+            <input type="text" id="incomeModal"></input>
             </div>
             <button type="button" id="deleteModal" class="btn btn-secondary btn-med">Delete</button>
             <button type="button" id="submitModal" class="btn btn-primary btn-med">Submit</button>
         </div>
     </div>
-
-
   
   </div>
     
@@ -224,6 +219,7 @@
     <!-- slimscroll js -->
     <script src="js/lib/jquery.slimscroll.js"></script>
     <script src="js/lib/bootstrap.bundle.js"></script>    
+    <script src="js/model.js"></script>
     <script src="js/income.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 </body>

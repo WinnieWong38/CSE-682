@@ -6,10 +6,11 @@ $(document).ready(function() {
 });
 
 function init(){
-	//createChart();
+	createChart();
 	createTable();
 	enableListeners();
 	getTotalLimit();
+	getUser();
 }
 
 
@@ -21,23 +22,23 @@ function createChart(){
 	}).done(function(data){
 		for(let item in data){
 			$.ajax({
-				url: "/api/expense/getTotalCostByCategory/" + data[item].categoryid,
+				url: "/api/limit/getLimitByCategory/" + data[item].categoryid,
 				async: false
-			}).done(function(total){
-				categoryArr.push([ data[item].category, total]);
+			}).done(function(limit){
+				categoryArr.push([ data[item].category, limit.limit ? limit.limit : 0]);
 				if(data.length === categoryArr.length){
-				chart = c3.generate({
-        			bindto: "#c3chart_category",
-        			data: {
-            			columns: categoryArr,
-            			type: 'donut',
-            		},
-        			donut: {
-            			label: {
-                			show: false
-            			}
-        			}
-    			});
+					chart = c3.generate({
+						bindto: "#c3chart_category",
+						data: {
+							columns: categoryArr,
+							type: 'donut',
+						},
+						donut: {
+							label: {
+								show: false
+							}
+						}
+					});
 				};
 			});
 		}
@@ -146,6 +147,16 @@ function createChart(){
 					$('#totalLimitText').text(limit.limit);
 				})
 			});
+
+			$('#submit').addClass('disabled');
+			$('.card-body').off('change input').on('change input', function(){
+				if(!isBlank($('#category').val())){
+					$('#submit').removeClass('disabled');
+				}
+				else{
+					$('#submit').addClass('disabled');
+				}
+			});
 		}
 
         function addToTable(categoryid, category, limit){
@@ -197,14 +208,19 @@ function createChart(){
 				});
 			});
 
-			$('#deleteModal').off('click').on('click', function(){
+			$('#removeLimitModal').off('click').on('click', function(){
 				$.ajax({
-					url: "/api/category/deleteCategory/" + data[0],
+					url: "/api/limit/deleteLimitByCategory/" + data[0],
 					method: "DELETE",
 					contentType: "application/json",
 					dataType: "json"
 				})
-                    categoryTable.row( row ).remove().draw();
+					categoryTable.row( row ).remove().draw();
+					categoryTable.row.add([
+                        data[0],
+                        data[1],
+                        ''
+                    ]).draw( false );
 					createChart();
 					modal.style.display = "none";
 			});
@@ -225,14 +241,12 @@ function createChart(){
 			}
 		}
 		
-		//get the user name
-	$(document).ready(function() {
-	$.ajax({
-			url: "/api/User/getUsername"
-		}).done(function(data){			
-			var x = document.getElementById("username");
-			x.innerHTML = data; 
-		});
-	
-	});
+	function getUser() {
+		$.ajax({
+				url: "/api/User/getUsername"
+			}).done(function(data){			
+				var x = document.getElementById("username");
+				x.innerHTML = data; 
+			});
+	}
 		

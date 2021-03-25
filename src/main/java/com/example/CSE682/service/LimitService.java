@@ -91,6 +91,7 @@ public class LimitService implements ILimitService{
 	public Limit setTotalLimit(Limit totalLimit) {
 		Limit total_limit_repository = limitRepository.getTotalLimit(userService.getLoggedinUser());
 		if (total_limit_repository == null) {
+			totalLimit.setUser(userService.getLoggedinUser());
 			total_limit_repository = limitRepository.save(totalLimit);
 		} else {
 			total_limit_repository.setLimit(totalLimit.getLimit());
@@ -103,6 +104,12 @@ public class LimitService implements ILimitService{
 	@Override
 	public Limit getTotalLimit(){
 		return limitRepository.getTotalLimit(userService.getLoggedinUser());
+	}
+
+	@Override
+	public void deleteByCategory(Long id){
+		Limit limit = getLimitByIdByCategory(id);
+		limitRepository.deleteById(limit.getLimitId());
 	}
 }
 

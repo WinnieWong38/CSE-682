@@ -48,6 +48,11 @@ public class LimitController {
 	void deleteLimit(@PathVariable Long id) {
 		limitService.delete(id);
 	}
+
+	@DeleteMapping("/deleteLimitByCategory/{id}")
+	void deleteLimitByCategory(@PathVariable Long id) {
+		limitService.deleteByCategory(id);
+	}
 	 
 	 @GetMapping("/getLimitAndCategoriesAndExpenses")
 	 public ArrayList<ArrayList> getLimitAndCategoriesAndExpenses() {

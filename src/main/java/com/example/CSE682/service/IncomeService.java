@@ -47,7 +47,7 @@ public class IncomeService implements IIncomeService{
 	public Income edit(Income newIncome, Long id) {
 		Income income = incomeRepository.getIncomeById(id);
 		income.setIncome(newIncome.getIncome());
-		income.setIncomeid(newIncome.getIncomeid());
+		income.setCost(newIncome.getCost());
 	    return incomeRepository.save(income);
 	}
 	

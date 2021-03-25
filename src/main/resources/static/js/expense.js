@@ -1,17 +1,6 @@
 var table;
 var chart;
 
-//get the user name
-	$(document).ready(function() {
-	$.ajax({
-			url: "/api/User/getUsername"
-		}).done(function(data){			
-			var x = document.getElementById("username");
-			x.innerHTML = data; 
-		});
-	
-	});
-
 $(document).ready(function() {
 	init();
 	
@@ -52,6 +41,7 @@ function init(){
 	createChart();
 	createTable();
 	enableListeners();
+	getUser();
 }
 
 
@@ -100,6 +90,9 @@ function createChart(){
 				x.add(option);
 			}
 		});
+
+		
+
 	}
 		
 	function createTable(){	
@@ -168,8 +161,23 @@ function createChart(){
 						expense.isPaid ? "<i class='fas fa-check'></i>" : ""
 					]).draw( false );
 					createChart();
+					$('#item').val('');
+					$('#price').val('');
+					$('#submit').addClass('disabled');
+				}).fail(function(){
+					alert('Invalid entry');
 				});
 			
+			});
+
+			$('#submit').addClass('disabled');
+			$('.card-body').off('change input').on('change input', function(){
+				if(!isBlank($('#item').val()) && !isBlank($('#price').val()) && !isBlank($('#date').val())){
+					$('#submit').removeClass('disabled');
+				}
+				else{
+					$('#submit').addClass('disabled');
+				}
 			});
 		}
 
@@ -235,5 +243,18 @@ function createChart(){
 				modal.style.display = "none";
 			}
 			}
+		}
+
+		function isBlank(str) {
+			return (!str || /^\s*$/.test(str)); //check for empty and all blank
+		}
+
+		function getUser() {
+			$.ajax({
+					url: "/api/User/getUsername"
+				}).done(function(data){			
+					var x = document.getElementById("username");
+					x.innerHTML = data; 
+				});
 		}
 		

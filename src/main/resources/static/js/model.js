@@ -22,3 +22,10 @@ function createLimit(limit, category, isTotal){
 	obj.isTotal = isTotal;
 	return obj;
 }
+
+function createIncome(income, cost){
+	var obj = {};
+	obj.income = income;
+	obj.cost = parseInt(cost);
+	return obj;
+}
