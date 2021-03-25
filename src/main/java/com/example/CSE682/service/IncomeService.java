@@ -19,7 +19,7 @@ public class IncomeService implements IIncomeService{
 	
 	@Override
 	public List<Income> getAllIncomes() {
-		return incomeRepository.findAll();
+		return incomeRepository.findAllByUser(userService.getLoggedinUser());
 	}
 	
 	@Override

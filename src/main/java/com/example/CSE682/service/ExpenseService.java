@@ -70,21 +70,25 @@ public class ExpenseService implements IExpenseService{
 	}
 	
 	@Override
-	public double getTotalCostByCategory(Long id) {
+	public double getTotalCostCurrentMonthByCategoryId(Long id) {
 		Optional<Category> category = categoryRepository.findById(id);
 		if(category.isEmpty()) return 0.0;
-		int count = expenseRepository.getCountByCategory(category.get());
+		LocalDate first_of_month = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
+		LocalDate last_of_month = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
+		double count = expenseRepository.getCountByCategoryBetweenTwoDates(category.get(), first_of_month, last_of_month);
 		if(count > 0)
 		{
-			double rtn = expenseRepository.getTotalCostByCategory(category.get());
+			double rtn = expenseRepository.getTotalCostBetweenTwoDatesByCategory(first_of_month, last_of_month, category.get(), userService.getLoggedinUser());
 			return rtn;
 		}
 		else return 0.0;
 	}
 	
 	@Override
-	public double getTotalCostBetweenTwoDates(String startDate, String endDate) {
-		return expenseRepository.getTotalCostBetweenTwoDates(LocalDate.parse(startDate), LocalDate.parse(endDate), userService.getLoggedinUser());
+	public double getTotalCostCurrentMonth() {
+		LocalDate first_of_month = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
+		LocalDate last_of_month = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
+		return expenseRepository.getTotalCostBetweenTwoDates(first_of_month, last_of_month, userService.getLoggedinUser());
 	}
 	
 	@Override
@@ -94,18 +98,9 @@ public class ExpenseService implements IExpenseService{
 		ArrayList<Object> category_names = new ArrayList<Object>();
 		ArrayList<Object> costs = new ArrayList<Object>();
 		
-		LocalDate first_of_month = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
-		LocalDate last_of_month = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
 		for (Category c : categories) {
 			category_names.add(c.getCategory());
-			double count = expenseRepository.getCountByCategoryBetweenTwoDates(c, first_of_month, last_of_month);
-			if(count > 0)
-			{
-				costs.add(expenseRepository.getTotalCostBetweenTwoDatesByCategory(first_of_month, last_of_month, c, userService.getLoggedinUser()));
-			}
-			else{
-				costs.add(0.0);
-			}
+			costs.add(getTotalCostCurrentMonthByCategoryId(c.getCategoryid()));
 		}
 		
 		category_costs.add(category_names);
@@ -180,13 +175,11 @@ public class ExpenseService implements IExpenseService{
 	
 	@Override
 	public double getTotalExpenseToLimitRatio() {
-		double total_expense = expenseRepository.getTotalCost(userService.getLoggedinUser());
-		System.out.println(total_expense);
+		double total_expense = getTotalCostCurrentMonth();
 		Limit total_limit = limitRepository.getTotalLimit(userService.getLoggedinUser());
 		if (total_limit == null) {
-			return -1;
+			return 0;
 		}
-		System.out.println(total_limit.getLimit());
 		
 		return total_expense / total_limit.getLimit() * 100;
 	}

@@ -26,6 +26,7 @@ public class IncomeController {
     public Income getIncomeById(Long id) {
 		return incomeService.getIncomeById(id);
     }
+	
 	@GetMapping("/getIncomes")
     public List<Income> getIncomes() {
 		return incomeService.getAllIncomes();
@@ -57,10 +58,8 @@ public class IncomeController {
     }
 
 	@GetMapping("/getIdByVal")
-	public Long GetIdByVal(@PathVariable String desc, @PathVariable double income)
-	{
+	public Long GetIdByVal(@PathVariable String desc, @PathVariable double income) {
 		return incomeService.GetIdByVal(desc, income);
-		
 	}
 
 }

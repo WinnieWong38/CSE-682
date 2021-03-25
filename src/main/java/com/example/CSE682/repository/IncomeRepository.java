@@ -16,6 +16,9 @@ public interface IncomeRepository extends CrudRepository<Income, Long>{
 
 	List<Income> findAll();
 	
+	@Query("select i from Income i where i.user = :user")
+	List<Income> findAllByUser(@Param("user") User user);
+	
 	@Query("select SUM(i.cost) from Income i where i.user = :user")
 	double getTotalIncome(@Param("user") User user);
 	
