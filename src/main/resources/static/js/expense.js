@@ -197,6 +197,18 @@ function createChart(){
 					buttonModal = false;
 				}
 			});
+
+			$('#price').off('input').on('input', function(){
+				if($('#price').val() < 0){
+					$('#price').val(0);
+				}
+			});
+		
+			$('#priceModal').off('input').on('input', function(){
+				if($('#priceModal').val() < 0){
+					$('#priceModal').val(0);
+				}
+			});
 		}
 
 		function createModal(data, row){

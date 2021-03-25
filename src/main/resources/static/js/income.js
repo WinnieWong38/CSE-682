@@ -132,6 +132,18 @@ function createChart() {
 			buttonModal = false;
 		}
 	});
+
+	$('#income').off('input').on('input', function(){
+		if($('#income').val() < 0){
+			$('#income').val(0);
+		}
+	});
+
+	$('#incomeModal').off('input').on('input', function(){
+		if($('#incomeModal').val() < 0){
+			$('#incomeModal').val(0);
+		}
+	});
 	
 	} 
 
