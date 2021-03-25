@@ -116,6 +116,7 @@ function createChart(){
 			$('#submit').off('click').on('click', function(){
 				if(button){
 					var category = $('#category').val();
+					var limitVal = $('#limit').val();
 					$('#category').val('');
 					$('#limit').val('');
 					button = false;
@@ -128,8 +129,8 @@ function createChart(){
 						data: JSON.stringify(category)
 					}).done(function(category){
 						categories.push(category.category)
-						if($('#limit').val()){
-						var limit = createLimit($('#limit').val(), category, false);
+						if(limitVal){
+						var limit = createLimit(limitVal, category, false);
 						$.ajax({
 							url: "/api/limit/addLimit",
 							method: "POST",
