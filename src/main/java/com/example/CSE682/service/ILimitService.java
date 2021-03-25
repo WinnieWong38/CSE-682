@@ -25,4 +25,6 @@ public interface ILimitService {
 
 	Limit getTotalLimit();
 
+	void deleteByCategory(Long id);
+
 }

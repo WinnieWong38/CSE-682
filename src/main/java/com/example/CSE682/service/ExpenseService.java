@@ -88,12 +88,32 @@ public class ExpenseService implements IExpenseService{
 	}
 	
 	@Override
-	public double getTotalCostBetweenTwoDatesByCategory(String startDate, String endDate, Long categoryId) {
-		Category c = categoryRepository.getCategoryById(categoryId);
-		System.out.println(c.getCategory());
-		System.out.println(userService.getLoggedinUser().getUserName());
-		return expenseRepository.getTotalCostBetweenTwoDatesByCategory(LocalDate.parse(startDate), LocalDate.parse(endDate), c, userService.getLoggedinUser());
+	public ArrayList<ArrayList<Object>> getTotalCostCurrentMonthByCategory() {
+		List<Category> categories = categoryRepository.findAllByUser(userService.getLoggedinUser());
+		ArrayList<ArrayList<Object>> category_costs = new ArrayList<ArrayList<Object>>();
+		ArrayList<Object> category_names = new ArrayList<Object>();
+		ArrayList<Object> costs = new ArrayList<Object>();
+		
+		LocalDate first_of_month = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
+		LocalDate last_of_month = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
+		for (Category c : categories) {
+			category_names.add(c.getCategory());
+			double count = expenseRepository.getCountByCategoryBetweenTwoDates(c, first_of_month, last_of_month);
+			if(count > 0)
+			{
+				costs.add(expenseRepository.getTotalCostBetweenTwoDatesByCategory(first_of_month, last_of_month, c, userService.getLoggedinUser()));
+			}
+			else{
+				costs.add(0.0);
+			}
+		}
+		
+		category_costs.add(category_names);
+		category_costs.add(costs);
+		
+		return category_costs;
 	}
+
 	
 	@Override
 	public ArrayList<ArrayList<Object>> getTimeseriesChart() {

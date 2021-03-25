@@ -14,7 +14,7 @@ public interface LimitRepository extends CrudRepository<Limit, Long>{
 
 	List<Limit> findAll();
 	
-	@Query("select l from Limit l where l.user = :user")
+	@Query("select l from Limit l where l.user = :user and l.isTotal IS FALSE")
 	List<Limit> findAllByUser(@Param("user") User user);
 	
 	Optional<Limit> findById(Long id);

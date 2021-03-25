@@ -1,79 +1,43 @@
-
-
-/*
-new Vue({
-	el: '#app',
-	data(){
-	return {
-		items: []
-	}
-	},
-	created(){
-		fetch(url)
-			.then(response => {
-				return response.json();
-			})
-			.then(items => {
-				this.items = items;
-			})
-	}
-});
-*/
+var table;
+var chart;
 
 $(document).ready(function() {
+	init();
+});
+
+function init(){
+	getUser();
+	createChart();
+	createTable();
+	enableListeners();
+}
+
+function createChart() {
 	var categoryArr = [];
 	$.ajax({
 			url: "/api/income/getIncomes"
 		}).done(function(data){
 			for(let item in data){
-			categoryArr.push([ data[item].description, data[item].income]);											
-				var chart = c3.generate({
-        bindto: "#c3chart_category",
-        data: {
-            columns: categoryArr,
-            type: 'donut',
-
-            onclick: function(d, i) { console.log("onclick", d, i); },
-            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function(d, i) { console.log("onmouseout", d, i); },
-
-            colors: {
-                Men: '#5969ff',
-                Women: '#ff407b',
-                Accessories: '#25d5f2',
-                Children: '#ffc750',
-                Apperal: '#2ec551',
-
-
-
-            }
-        },
-        donut: {
-            label: {
-                show: false
-            }
-		},
+				categoryArr.push([ data[item].income, data[item].cost]);	
+			}								
+				chart = c3.generate({
+        			bindto: "#c3chart_Income",
+					data: {
+						columns: categoryArr,
+						type: 'donut',
+        			},
+					donut: {
+						label: {
+							show: false
+						}
+				},
         });
-}
 		});
     
-    });
+    };
 
 	
-	$(document).ready(function() {
-		
-	/*	$.ajax({
-			url: "/api/category/getCategories"
-		}).done(function(data){
-			for(let item in data){
-				var x = document.getElementById("category");
-				var option = document.createElement("option");
-				option.value = data[item].categoryid;
-				option.text = data[item].category;
-				x.add(option);
-			}
-		});
-		*/ 
+	function createTable() {
 		
 		$('#example thead tr').clone(true).appendTo( '#example thead' );
 		$('#example thead tr:eq(1) th').each( function (i) {
@@ -90,7 +54,7 @@ $(document).ready(function() {
         } );
 		} );
 		
-		var table = $('#example').DataTable({
+		table = $('#example').DataTable({
 			 "columnDefs": [
             {
                 "targets": [ 0 ],
@@ -112,61 +76,99 @@ $(document).ready(function() {
 				]).draw( false );
 			}
 		});
+
+		$('#example tbody').on('click', 'tr', function () {
+			createModal(table.row( this ).data(), $(this));
+		} );
 		
-		$('#table').on('click', 'tbody tr', function () {
-            table.row( this ).edit();			
-        });
-		
-		
-		$('#example tbody').on('click', '[id*=btnDelete]', function () {
-			var row = $(this).parents('tr');
-            var data = table.row(row).data();
-            var id = data[0];
-			var description = data[1];
-            var income = data[2];
-         
-			$.ajax({
-				type: "DELETE",
-				url: "/api/income/deleteVal/"+id
-			}).done(function(){
-				table.row( row ).remove().draw();
-			});
-		});
-		
+	}
+
+	function enableListeners(){
 		$('#submit').off('click').on('click', function(){
-		var saveObj = {};
-		saveObj.income = $('#description').val();		
-		saveObj.cost = parseInt($('#income').val());
+		var income = createIncome($('#description').val(), $('#income').val());
 		$.ajax({
 			url: "/api/income/addIncome",
 			method: "POST",
 			contentType: "application/json",
     		dataType: "json",
-			data: JSON.stringify(saveObj)
+			data: JSON.stringify(income)
 		}).done(function(income){
-			console.log(income);
 			table.row.add([
 				income.incomeid,
 				income.income,
-				income.cost,
-				"<input id='btnDelete' class='btn btn-success' width='15px' value='Delete' />"
+				income.cost
 			]).draw( false );
-			//createChart();
+			createChart();
 		});
 	});
 	
-	} );
-	
-	//get the user name
-	$(document).ready(function() {
-	$.ajax({
-			url: "/api/User/getUsername"
-		}).done(function(data){			
-			var x = document.getElementById("username");
-			x.innerHTML = data; 
+	} 
+
+	function createModal(data, row){
+		// Get the modal
+		var modal = document.getElementById("myModal");
+
+		modal.style.display = "block";
+
+		$('#descriptionModal').val(data[1]); 
+		$('#incomeModal').val(data[2]);
+
+		$('#submitModal').off('click').on('click', function(){
+			var income = createIncome($('#descriptionModal').val(), $('#incomeModal').val());
+			$.ajax({
+				url: "/api/income/editIncome/" + data[0],
+				method: "PUT",
+				contentType: "application/json",
+				dataType: "json",
+				data: JSON.stringify(income)
+			}).done(function(income){
+				table.row( row ).remove().draw();
+				table.row.add([
+					income.incomeid,
+					income.income,
+					income.cost
+				]).draw( false );
+				createChart();
+				modal.style.display = "none";
+			});
 		});
-	
-	});
+
+		$('#deleteModal').off('click').on('click', function(){
+			$.ajax({
+				url: "/api/income/deleteIncome/" + data[0],
+				method: "DELETE",
+				contentType: "application/json",
+				dataType: "json"
+			})
+				table.row( row ).remove().draw();
+				createChart();
+				modal.style.display = "none";
+		});
+		
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+			modal.style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+		}
+	}
+
+	function getUser() {
+		$.ajax({
+				url: "/api/User/getUsername"
+			}).done(function(data){			
+				var x = document.getElementById("username");
+				x.innerHTML = data; 
+			});
+	}
 	
 	
 	

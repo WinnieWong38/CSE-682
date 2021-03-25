@@ -33,6 +33,9 @@ public interface ExpenseRepository extends CrudRepository<Expense, Long>{
 	@Query("select COUNT(e) from Expense e where e.category = :category")
 	int getCountByCategory(@Param("category") Category category);
 	
+	@Query("select COUNT(e) from Expense e where e.category = :category AND :startDate <= e.date AND :endDate >= e.date")
+	double getCountByCategoryBetweenTwoDates(@Param("category") Category category, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
 	@Query("select SUM(e.cost) from Expense e where :startDate <= e.date AND :endDate >= e.date AND e.category.user = :user")
 	double getTotalCostBetweenTwoDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("user") User user);
 	

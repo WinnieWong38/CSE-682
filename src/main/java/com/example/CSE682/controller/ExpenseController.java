@@ -67,16 +67,11 @@ public class ExpenseController {
 		return expenseService.getTotalCostBetweenTwoDates(startDate, endDate);
 	}
 	
-	@PostMapping("/getTotalCostBetweenTwoDatesByCategory")
-	public double getTotalCostBetweenTwoDatesByCategory(HttpServletRequest request) {
-		String startDate = request.getParameter("startDate");
-		System.out.println(startDate);
-		String endDate = request.getParameter("endDate");
-		System.out.println(endDate);
-		Long categoryId = Long.parseLong(request.getParameter("categoryId"));
-		System.out.println(categoryId);
-		return expenseService.getTotalCostBetweenTwoDatesByCategory(startDate, endDate, categoryId);
+	@GetMapping("/getTotalCostCurrentMonthByCategory")
+	public ArrayList<ArrayList<Object>> getTotalCostCurrentMonthByCategory() {
+		return expenseService.getTotalCostCurrentMonthByCategory();
 	}
+
 
 	@GetMapping("/getTimeseriesChart")
 	public ArrayList<ArrayList<Object>> getTimeseriesChart() {

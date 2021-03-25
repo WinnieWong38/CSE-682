@@ -1,3 +1,5 @@
+var gaugeChart;
+
 $(document).ready(function() {
 	init();
 });
@@ -5,8 +7,9 @@ $(document).ready(function() {
 function init(){
 	createBarLimitCat();
     createMonthlyTrend();
-    createGauge();
+    createBar();
     createTable();
+    getUser();
 }
 
 function createBarLimitCat(){
@@ -67,26 +70,31 @@ function createMonthlyTrend(){
     
 }
 
-function createGauge(){
+function createBar(){
     $.ajax({
-        url: "/api/expense/getTotalExpenseToIncomeRatio",
+        url: "/api/expense/getTotalExpenseToLimitRatio",
     }).done(function(data){
         console.error('data2', data)
-        var gaugeChart = c3.generate({
-            bindto: "#incomeGuage",
+        gaugeChart = c3.generate({
+            bindto: "#expensetoLimitRatio",
             data: {
                 columns: [
-                    ['data', data]
+                    ['Ratio', data]
                 ],
-                type: 'gauge'
+                type: 'bar'
             },
-            color: {
-                pattern: ['#60B044'], 
+            bar: {
+                width: {
+                    ratio: 0.5 // this makes bar width 50% of length between ticks
+                }
+                // or
+                //width: 100 // this makes bar width 100px
             },
-            size: {
-                height: 180
-            }
+            axis: {
+                rotated: true
+            }        
         });
+        
     });
 }
 
@@ -106,32 +114,25 @@ function createTable(){
     } );
     } );
     
-    var table = $('#expensesByCategory').DataTable({
-    });
-
-    $('#expensesByCategory tbody').on('click', 'tr', function () {
-        createModal(table.row( this ).data(), $(this));
-    } );
+    var table = $('#expensesByCategory').DataTable({});
     
-    // $.ajax({
-    //     url: "/api/expense/getExpenses"
-    // }).done(function(data){
-    //     for(let item in data){
-    //         table.row.add([
-    //             data[item].category,
-    //             data[item].total
-    //         ]).draw( false );
-    //     }
-    // });
+    $.ajax({
+        url: "/api/expense/getTotalCostCurrentMonthByCategory"
+    }).done(function(data){
+        for(let item in data[0]){
+            table.row.add([
+                data[0][item],
+                data[1][item]
+            ]).draw( false );
+        }
+    });
 }
 
-//get the user name
-	$(document).ready(function() {
-	$.ajax({
-			url: "/api/User/getUsername"
-		}).done(function(data){			
-			var x = document.getElementById("username");
-			x.innerHTML = data; 
-		});
-	
-	});
+	function getUser() {
+        $.ajax({
+                url: "/api/User/getUsername"
+            }).done(function(data){			
+                var x = document.getElementById("username");
+                x.innerHTML = data; 
+            });
+	}

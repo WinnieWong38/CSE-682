@@ -41,7 +41,7 @@ public class IncomeController {
 		return incomeService.edit(income, id);
 	}
 	
-	@DeleteMapping("/deleteVal/{id}")
+	@DeleteMapping("/deleteIncome/{id}")
 	void deleteIncome(@PathVariable Long id) {
 		incomeService.delete(id);
 	}
