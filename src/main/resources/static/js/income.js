@@ -1,5 +1,7 @@
 var table;
 var chart;
+var button = false;
+var buttonModal = true;
 
 $(document).ready(function() {
 	init();
@@ -85,21 +87,50 @@ function createChart() {
 
 	function enableListeners(){
 		$('#submit').off('click').on('click', function(){
-		var income = createIncome($('#description').val(), $('#income').val());
-		$.ajax({
-			url: "/api/income/addIncome",
-			method: "POST",
-			contentType: "application/json",
-    		dataType: "json",
-			data: JSON.stringify(income)
-		}).done(function(income){
-			table.row.add([
-				income.incomeid,
-				income.income,
-				income.cost
-			]).draw( false );
-			createChart();
-		});
+			if(button){
+				var income = createIncome($('#description').val(), $('#income').val());
+				$('#description').val('');
+				$('#income').val('');
+				button = false;
+				$('#submit').addClass('disabled');	
+				$.ajax({
+					url: "/api/income/addIncome",
+					method: "POST",
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify(income)
+				}).done(function(income){
+					table.row.add([
+						income.incomeid,
+						income.income,
+						income.cost
+					]).draw( false );
+					createChart();
+				});
+		}
+	});
+
+	$('#submit').addClass('disabled');
+	$('.card-body').off('change input').on('change input', function(){
+		if(!isBlank($('#description').val()) && !isBlank($('#income').val())){
+			$('#submit').removeClass('disabled');
+			button = true;
+		}
+		else{
+			$('#submit').addClass('disabled');
+			button = false;
+		}
+	});
+
+	$('#incomeModalForm').off('change input').on('change input', function(){
+		if(!isBlank($('#descriptionModal').val()) && !isBlank($('#incomeModal').val())){
+			$('#submitModal').removeClass('disabled');
+			buttonModal = true;
+		}
+		else{
+			$('#submitModal').addClass('disabled');
+			buttonModal = false;
+		}
 	});
 	
 	} 
@@ -114,23 +145,25 @@ function createChart() {
 		$('#incomeModal').val(data[2]);
 
 		$('#submitModal').off('click').on('click', function(){
-			var income = createIncome($('#descriptionModal').val(), $('#incomeModal').val());
-			$.ajax({
-				url: "/api/income/editIncome/" + data[0],
-				method: "PUT",
-				contentType: "application/json",
-				dataType: "json",
-				data: JSON.stringify(income)
-			}).done(function(income){
-				table.row( row ).remove().draw();
-				table.row.add([
-					income.incomeid,
-					income.income,
-					income.cost
-				]).draw( false );
-				createChart();
-				modal.style.display = "none";
-			});
+			if(buttonModal){
+				var income = createIncome($('#descriptionModal').val(), $('#incomeModal').val());
+				$.ajax({
+					url: "/api/income/editIncome/" + data[0],
+					method: "PUT",
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify(income)
+				}).done(function(income){
+					table.row( row ).remove().draw();
+					table.row.add([
+						income.incomeid,
+						income.income,
+						income.cost
+					]).draw( false );
+					createChart();
+					modal.style.display = "none";
+				});
+		}
 		});
 
 		$('#deleteModal').off('click').on('click', function(){
@@ -170,5 +203,8 @@ function createChart() {
 			});
 	}
 	
+	function isBlank(str) {
+		return (!str || /^\s*$/.test(str)); //check for empty and all blank
+	}
 	
 	

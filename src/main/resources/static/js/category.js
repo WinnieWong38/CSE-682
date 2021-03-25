@@ -1,5 +1,10 @@
 var categoryTable;
 var chart;
+var button = false;
+var buttonTotal = false;
+var buttonModal = true;
+var categories = [];
+var modalCategory;
 
 $(document).ready(function() {
 	init();
@@ -21,6 +26,7 @@ function createChart(){
 			url: "/api/category/getCategories"
 	}).done(function(data){
 		for(let item in data){
+			categories.push(data[item].category);
 			$.ajax({
 				url: "/api/limit/getLimitByCategory/" + data[item].categoryid,
 				async: false
@@ -108,53 +114,106 @@ function createChart(){
 		function enableListeners(){
 			//Add new expense
 			$('#submit').off('click').on('click', function(){
-				var category = $('#category').val();
-				$.ajax({
-					url: "/api/category/addCategory",
-					method: "POST",
-					contentType: "application/json",
-					dataType: "json",
-					data: JSON.stringify(category)
-				}).done(function(category){
-                    if($('#limit').val()){
-                    var limit = createLimit($('#limit').val(), category, false);
-                    $.ajax({
-                        url: "/api/limit/addLimit",
-					    method: "POST",
-					    contentType: "application/json",
-					    dataType: "json",
-					    data: JSON.stringify(limit)
-                    }).done(function(limit){
-                        addToTable(category.categoryid, category.category, limit.limit)
-                    });
-                }
-                else{
-                    addToTable(category.categoryid, category.category, '')
-                }
-					
+				if(button){
+					var category = $('#category').val();
+					$('#category').val('');
+					$('#limit').val('');
+					button = false;
+					$('#submit').addClass('disabled');
+					$.ajax({
+						url: "/api/category/addCategory",
+						method: "POST",
+						contentType: "application/json",
+						dataType: "json",
+						data: JSON.stringify(category)
+					}).done(function(category){
+						categories.push(category.category)
+						if($('#limit').val()){
+						var limit = createLimit($('#limit').val(), category, false);
+						$.ajax({
+							url: "/api/limit/addLimit",
+							method: "POST",
+							contentType: "application/json",
+							dataType: "json",
+							data: JSON.stringify(limit)
+						}).done(function(limit){
+							addToTable(category.categoryid, category.category, limit.limit);
+						});
+					}
+					else{
+						addToTable(category.categoryid, category.category, '')
+					}
+						
+					});
+				}
+				
 				});
-			
-			});
-			$('#submitTotal').off('click').on('click', function(){
-				var limit = createLimit($('#totalLimit').val(), null, true);
-				$.ajax({
-					url: "/api/limit/setTotalLimit",
-					method: "POST",
-					contentType: "application/json",
-					dataType: "json",
-					data: JSON.stringify(limit)
-				}).done(function(limit){
-					$('#totalLimitText').text(limit.limit);
-				})
+				$('#submitTotal').off('click').on('click', function(){
+					if(buttonTotal){
+						var limit = createLimit($('#totalLimit').val(), null, true);
+						buttonTotal = false;
+						$('#submitTotal').addClass('disabled');
+						$('#totalLimit').val('');
+						$.ajax({
+							url: "/api/limit/setTotalLimit",
+							method: "POST",
+							contentType: "application/json",
+							dataType: "json",
+							data: JSON.stringify(limit)
+						}).done(function(limit){
+							$('#totalLimitText').text(limit.limit);
+						});
+				}
 			});
 
 			$('#submit').addClass('disabled');
-			$('.card-body').off('change input').on('change input', function(){
+			$('#categoryCardBody').off('change input').on('change input', function(){
 				if(!isBlank($('#category').val())){
-					$('#submit').removeClass('disabled');
+					if(categories.indexOf($('#category').val()) != -1){
+						$('#submit').addClass('disabled');
+						button = false;
+						$('#duplicateText').text('Categories can not have the same name');
+					}
+					else{
+						$('#submit').removeClass('disabled');
+						button = true;
+						$('#duplicateText').text('');
+					}
 				}
 				else{
 					$('#submit').addClass('disabled');
+					button = false;
+				}
+			});
+
+			$('#submitTotal').addClass('disabled');
+			$('#totalCardBody').off('change input').on('change input', function(){
+				if(!isBlank($('#totalLimit').val())){
+					$('#submitTotal').removeClass('disabled');
+					buttonTotal = true;
+				}
+				else{
+					$('#submitTotal').addClass('disabled');
+					buttonTotal = false;
+				}
+			});
+
+			$('#categoryModal').off('change input').on('change input', function(){
+				if(!isBlank($('#itemModal').val())){
+					if(categories.indexOf($('#itemModal').val()) != -1 && modalCategory !== ($('#itemModal').val())){
+						$('#submitModal').addClass('disabled');
+						buttonModal = false;
+						$('#duplicateTextModal').text('Categories can not have the same name');
+					}
+					else{
+						$('#submitModal').removeClass('disabled');
+						buttonModal = true;
+						$('#duplicateTextModal').text('');
+					}
+				}
+				else{
+					$('#submitModal').addClass('disabled');
+					buttonModal = false;
 				}
 			});
 		}
@@ -170,6 +229,7 @@ function createChart(){
 
 
 		function createModal(data, row){
+			modalCategory = data[1];
 			// Get the modal
 			var modal = document.getElementById("myModal");
 
@@ -179,6 +239,7 @@ function createChart(){
 			$('#limitModal').val(data[2]);
 
 			$('#submitModal').off('click').on('click', function(){
+				if(buttonModal){
 				var category = $('#itemModal').val();
 				$.ajax({
 					url: "/api/category/editCategory/" + data[0],
@@ -187,25 +248,28 @@ function createChart(){
 					dataType: "json",
 					data: JSON.stringify(category)
 				}).done(function(category){
+					categories.splice(categories.indexOf(data[1]), 1);
+					categories.push(category.category);
 					categoryTable.row( row ).remove().draw();
                     if(data[2] == '' && $('#limitModal').val() == ''){
                         addToTable(category.categoryid, category.category, '');
                     }
                     else{
-						var limit = createLimit($('#limitModal').val(), category);
+						var limit = createLimit($('#limitModal').val() ? $('#limitModal').val() : -1.0, category);
 						$.ajax({
 							url: "/api/limit/editLimit/" + data[0],
 							method: "PUT",
 							contentType: "application/json",
 							dataType: "json",
 							data: JSON.stringify(limit)
-						}).done(function(limit){
-                    		addToTable(category.categoryid, category.category, limit.limit);
+						}).always(function(limit){
+                    		addToTable(category.categoryid, category.category, limit.limit ? limit.limit : '');
 						});
                     }
 					createChart();
 					modal.style.display = "none";
 				});
+			}
 			});
 
 			$('#removeLimitModal').off('click').on('click', function(){
@@ -248,5 +312,9 @@ function createChart(){
 				var x = document.getElementById("username");
 				x.innerHTML = data; 
 			});
+	}
+
+	function isBlank(str) {
+		return (!str || /^\s*$/.test(str)); //check for empty and all blank
 	}
 		

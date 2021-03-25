@@ -52,9 +52,15 @@ public class LimitService implements ILimitService{
 			newLimit.setUser(userService.getLoggedinUser());
 			return limitRepository.save(newLimit);
 		}
-		limit.setLimit(newLimit.getLimit());
-		limit.setCategory(newLimit.getCategory());
-	    return limitRepository.save(limit);
+		if(newLimit.getLimit() < 0.0){
+			limitRepository.deleteById(limit.getLimitId());
+		}
+		else{
+			limit.setLimit(newLimit.getLimit());
+			limit.setCategory(newLimit.getCategory());
+	    	return limitRepository.save(limit);
+		}
+		return null;
 	}
 	
 	@Override
