@@ -216,6 +216,24 @@ function createChart(){
 					buttonModal = false;
 				}
 			});
+
+			$('#limit').off('input').on('input', function(){
+				if($('#limit').val() < 0){
+					$('#limit').val(0);
+				}
+			});
+
+			$('#totalLimit').off('input').on('input', function(){
+				if($('#totalLimit').val() < 0){
+					$('#totalLimit').val(0);
+				}
+			});
+		
+			$('#limitModal').off('input').on('input', function(){
+				if($('#limitModal').val() < 0){
+					$('#limitModal').val(0);
+				}
+			});
 		}
 
         function addToTable(categoryid, category, limit){
