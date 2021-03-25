@@ -72,23 +72,30 @@ public class ExpenseService implements IExpenseService{
 	@Override
 	public double getTotalCostCurrentMonthByCategoryId(Long id) {
 		Optional<Category> category = categoryRepository.findById(id);
-		if(category.isEmpty()) return 0.0;
+		if(category.isEmpty()) {
+			return 0.0;
+		}
 		LocalDate first_of_month = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
 		LocalDate last_of_month = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
 		double count = expenseRepository.getCountByCategoryBetweenTwoDates(category.get(), first_of_month, last_of_month);
-		if(count > 0)
-		{
+		if(count > 0) {
 			double rtn = expenseRepository.getTotalCostBetweenTwoDatesByCategory(first_of_month, last_of_month, category.get(), userService.getLoggedinUser());
 			return rtn;
 		}
-		else return 0.0;
+		else {
+			return 0.0;
+		}
 	}
 	
 	@Override
 	public double getTotalCostCurrentMonth() {
 		LocalDate first_of_month = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
 		LocalDate last_of_month = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
-		return expenseRepository.getTotalCostBetweenTwoDates(first_of_month, last_of_month, userService.getLoggedinUser());
+		if (expenseRepository.getCountBetweenTwoDates(first_of_month, last_of_month, userService.getLoggedinUser()) > 0) {
+			return expenseRepository.getTotalCostBetweenTwoDates(first_of_month, last_of_month, userService.getLoggedinUser());
+		}
+		
+		return 0;
 	}
 	
 	@Override
