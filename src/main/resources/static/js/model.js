@@ -2,7 +2,7 @@ function createExpense (expense, category, cost, date, isPaid) {
 	var obj = {};
 	obj.expense = expense;
 	obj.category = category;
-	obj.cost = parseInt(cost);
+	obj.cost = parseFloat(cost);
 	obj.date = date;
 	obj.isPaid = isPaid;
 	return obj;
@@ -10,14 +10,14 @@ function createExpense (expense, category, cost, date, isPaid) {
 
 function createCategory (categoryId, category) {
 	var obj = {};
-	obj.categoryid = parseInt(categoryId);
+	obj.categoryid = parseFloat(categoryId);
 	obj.category = category;
 	return obj;
 }
 
 function createLimit(limit, category, isTotal){
 	var obj = {};
-	obj.limit = parseInt(limit);
+	obj.limit = parseFloat(limit);
 	obj.category = category;
 	obj.isTotal = isTotal;
 	return obj;
@@ -26,6 +26,6 @@ function createLimit(limit, category, isTotal){
 function createIncome(income, cost){
 	var obj = {};
 	obj.income = income;
-	obj.cost = parseInt(cost);
+	obj.cost = parseFloat(cost);
 	return obj;
 }
