@@ -16,6 +16,7 @@ import com.example.CSE682.model.Expense;
 import com.example.CSE682.model.Limit;
 import com.example.CSE682.repository.CategoryRepository;
 import com.example.CSE682.repository.ExpenseRepository;
+import com.example.CSE682.repository.IncomeRepository;
 import com.example.CSE682.repository.LimitRepository;
 
 @Service
@@ -29,6 +30,9 @@ public class ExpenseService implements IExpenseService{
 	
 	@Autowired
 	LimitRepository limitRepository;
+	
+	@Autowired
+	IncomeRepository incomeRepository;
 	
 	@Autowired
 	IUserService userService;
@@ -181,13 +185,24 @@ public class ExpenseService implements IExpenseService{
 	}
 	
 	@Override
-	public double getTotalExpenseToLimitRatio() {
+	public ArrayList<Double> getMonthlySummaryBar() {
+		ArrayList<Double> ret_val = new ArrayList<Double>();
 		double total_expense = getTotalCostCurrentMonth();
+		ret_val.add(total_expense);
 		Limit total_limit = limitRepository.getTotalLimit(userService.getLoggedinUser());
 		if (total_limit == null) {
-			return 0;
+			ret_val.add(total_expense);
+		} else {
+			ret_val.add(total_limit.getLimit());
 		}
 		
-		return total_expense / total_limit.getLimit() * 100;
+		int num_incomes = incomeRepository.getCountTotalIncome(userService.getLoggedinUser());
+		if (num_incomes == 0) {
+			ret_val.add(0.0);
+		} else {
+			ret_val.add(incomeRepository.getTotalIncome(userService.getLoggedinUser()));
+		}
+
+		return ret_val;
 	}
 }
