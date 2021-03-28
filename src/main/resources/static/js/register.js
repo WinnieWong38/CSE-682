@@ -1,12 +1,14 @@
-		function isBlank(str) {
+	
+	//function to check if the string is empty or blank
+	function isBlank(str) {
     	return (!str || /^\s*$/.test(str)); //check for empty and all blank
 	}
 		
-	//function to compare new and retype password boxes and alert if diffrent
+	//function to compare new and reentered password boxes and alert if they do not match
 	function checkMatch()
 	{		
-		var newPassword = $('#newpassword').val();
-		var retypePassword = $('#retypepassword').val();
+		var newPassword = $('#newpassword').val(); //get the new password
+		var retypePassword = $('#retypepassword').val(); //get the reentered password
 		
 		//check if either is blank
 		if(isBlank(newPassword) || isBlank(retypePassword)) return false;
@@ -19,7 +21,7 @@
 		}
 		else
 		{
-			document.getElementById("pwdmatch").style.display = "none";  //hid message			
+			document.getElementById("pwdmatch").style.display = "none";  //hide message			
 			return true;	
 		}
 	}
@@ -27,11 +29,9 @@
 	//function to enable change button only when all fields are populated and the new passwords match
 	function checkReady()
 	{
-		var username = $('#username').val();
-		var newPassword = $('#newpassword').val();
-		var retypePassword = $('#retypepassword').val();
-	
-		if(isBlank(username) || !checkMatch())
+		var username = $('#username').val(); //get the username
+			
+		if(isBlank(username) || !checkMatch()) //check if user name is not blank and new password matches reentered password 
 		{
 			document.getElementById("subbtn").style.display = "none"; //hide the submit buttons divider
 			return false;
@@ -44,10 +44,12 @@
 	
 	}
 	
+	//assume no error and set display
 	$(document).ready(function() {
 	document.getElementById("error").style.display = "none"; 
 	});
 	
+	//handle the user's click of the submit button
 	$(document).ready(function() {
 		
 		
