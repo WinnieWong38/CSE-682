@@ -1,6 +1,5 @@
 package com.example.CSE682.service;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import com.example.CSE682.model.Category;
 import com.example.CSE682.model.User;
 
 @Service
-public class CategoryService implements ICategoryService{
+public class CategoryService implements ICategoryService {
 	
 	@Autowired
 	CategoryRepository categoryRepository;
