@@ -20,7 +20,7 @@ import com.example.CSE682.repository.IncomeRepository;
 import com.example.CSE682.repository.LimitRepository;
 
 @Service
-public class ExpenseService implements IExpenseService{
+public class ExpenseService implements IExpenseService {
 
 	@Autowired
 	ExpenseRepository expenseRepository;
