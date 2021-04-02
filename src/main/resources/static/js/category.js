@@ -75,7 +75,11 @@ function createChart(){
 					"targets": [ 0 ],
 					"visible": false,
 					"searchable": false
-				}
+				},
+	            {
+	        		targets: 2,
+	        		className: 'dt-body-right'
+	    		}
 			]
 		});
 
@@ -92,7 +96,7 @@ function createChart(){
                     url: "/api/limit/getLimitByCategory/" + data[item].categoryid
                 }).done(function(limit){
                     if(limit.limit){
-                        limit = limit.limit;
+                        limit = limit.limit.toFixed(2);
                     }
                     categoryTable.row.add([
                         data[item].categoryid,

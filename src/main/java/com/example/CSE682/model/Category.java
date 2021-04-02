@@ -14,47 +14,92 @@ import javax.persistence.Table;
 public class Category {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long categoryid;
-	
-	@Column(name="category", length=50, nullable=false, unique=false)
-    private String category;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long categoryid;
+
+	@Column(name = "category", length = 50, nullable = false, unique = false)
+	private String category;
+
 	@ManyToOne
-	@JoinColumn(name="userid", referencedColumnName="id")
+	@JoinColumn(name = "userid", referencedColumnName = "id")
 	private User user;
-	
-	public Category() {}
-	
+
+	/**
+	 * This method is used to construct a Category object.
+	 */
+	public Category() {
+	}
+
+	/**
+	 * This method is used to construct a Category object.
+	 * 
+	 * @param category The name of the category.
+	 */
 	public Category(String category) {
 		this.category = category;
 	}
-	
+
+	/**
+	 * This method is used to construct a Category object.
+	 * 
+	 * @param category The name of the category.
+	 * @param user     The User who created this category.
+	 */
 	public Category(String category, User user) {
 		this.category = category;
 		this.user = user;
 	}
 
+	/**
+	 * This method is used to get the category ID.
+	 * 
+	 * @return Long This returns category ID.
+	 */
 	public Long getCategoryid() {
 		return categoryid;
 	}
 
+	/**
+	 * This method is used to set the category ID.
+	 * 
+	 * @param categoryid The new ID for the category.
+	 */
 	public void setCategoryid(Long categoryid) {
 		this.categoryid = categoryid;
 	}
 
+	/**
+	 * This method is used to get the category name.
+	 * 
+	 * @return String This returns the category name.
+	 */
 	public String getCategory() {
 		return category;
 	}
 
+	/**
+	 * This method is used to set the category name.
+	 * 
+	 * @param category The new name for the category.
+	 */
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
+
+	/**
+	 * This method is used to get the User who created the category.
+	 * 
+	 * @return Long This returns category ID.
+	 */
 	public User getUser() {
 		return user;
 	}
-	
+
+	/**
+	 * This method is used to set the user.
+	 * 
+	 * @param user The new user for the category.
+	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
