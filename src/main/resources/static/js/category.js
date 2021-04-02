@@ -18,7 +18,7 @@ function init(){
 	getUser();
 }
 
-
+//creates category donut chart
 function createChart(){
 
 	var categoryArr = [];
@@ -52,9 +52,10 @@ function createChart(){
     
     }
 		
+	//creates category table
 	function createTable(){	
-		$('#example thead tr').clone(true).appendTo( '#example thead' );
-		$('#example thead tr:eq(1) th').each( function (i) {
+		$('#categoryTable thead tr').clone(true).appendTo( '#categoryTable thead' );
+		$('#categoryTable thead tr:eq(1) th').each( function (i) {
         var title = $(this).text();
         $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
  
@@ -68,7 +69,7 @@ function createChart(){
         } );
 		} );
 		
-		categoryTable = $('#example').DataTable({
+		categoryTable = $('#categoryTable').DataTable({
 			"columnDefs": [
 				{
 					"targets": [ 0 ],
@@ -78,7 +79,7 @@ function createChart(){
 			]
 		});
 
-		$('#example tbody').on('click', 'tr', function () {
+		$('#categoryTable tbody').on('click', 'tr', function () {
 			createModal(categoryTable.row( this ).data(), $(this));
 		} );
 		
@@ -103,6 +104,7 @@ function createChart(){
 		});
 	}
 
+	//gets the total limit
 	function getTotalLimit(){
 		$.ajax({
 			url: "/api/limit/getTotalLimit"
@@ -111,8 +113,9 @@ function createChart(){
 		});
 	}
 		
+		//enable listeners for the category table
 		function enableListeners(){
-			//Add new expense
+			//Add new category
 			$('#submit').off('click').on('click', function(){
 				if(button){
 					var category = $('#category').val();
@@ -149,6 +152,8 @@ function createChart(){
 				}
 				
 				});
+
+				//add new total limit
 				$('#submitTotal').off('click').on('click', function(){
 					if(buttonTotal){
 						var limit = createLimit($('#totalLimit').val(), null, true);
@@ -168,6 +173,7 @@ function createChart(){
 			});
 
 			$('#submit').addClass('disabled');
+			//validates the main category form
 			$('#categoryCardBody').off('change input').on('change input', function(){
 				if(!isBlank($('#category').val())){
 					if(categories.indexOf($('#category').val()) != -1){
@@ -188,6 +194,7 @@ function createChart(){
 			});
 
 			$('#submitTotal').addClass('disabled');
+			//validates the total limit form
 			$('#totalCardBody').off('change input').on('change input', function(){
 				if(!isBlank($('#totalLimit').val())){
 					$('#submitTotal').removeClass('disabled');
@@ -199,6 +206,7 @@ function createChart(){
 				}
 			});
 
+			//validates the category modal
 			$('#categoryModal').off('change input').on('change input', function(){
 				if(!isBlank($('#itemModal').val())){
 					if(categories.indexOf($('#itemModal').val()) != -1 && modalCategory !== ($('#itemModal').val())){
@@ -218,18 +226,21 @@ function createChart(){
 				}
 			});
 
+			//validates the limit input is not negative
 			$('#limit').off('input').on('input', function(){
 				if($('#limit').val() < 0){
 					$('#limit').val(0);
 				}
 			});
 
+			//validates the total limit is not negative 
 			$('#totalLimit').off('input').on('input', function(){
 				if($('#totalLimit').val() < 0){
 					$('#totalLimit').val(0);
 				}
 			});
 		
+			//validates the modal limit is not negative
 			$('#limitModal').off('input').on('input', function(){
 				if($('#limitModal').val() < 0){
 					$('#limitModal').val(0);
@@ -237,6 +248,7 @@ function createChart(){
 			});
 		}
 
+		//adds entries to the category table
         function addToTable(categoryid, category, limit){
             categoryTable.row.add([
                 categoryid,
@@ -247,6 +259,7 @@ function createChart(){
         }
 
 
+		//creates modal to edit a category
 		function createModal(data, row){
 			modalCategory = data[1];
 			// Get the modal
@@ -257,6 +270,7 @@ function createChart(){
             $('#itemModal').val(data[1]);
 			$('#limitModal').val(data[2]);
 
+			//edit a category
 			$('#submitModal').off('click').on('click', function(){
 				if(buttonModal){
 				var category = $('#itemModal').val();
@@ -291,6 +305,7 @@ function createChart(){
 			}
 			});
 
+			//remove the limit from a category
 			$('#removeLimitModal').off('click').on('click', function(){
 				$.ajax({
 					url: "/api/limit/deleteLimitByCategory/" + data[0],

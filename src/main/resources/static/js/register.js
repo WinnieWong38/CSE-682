@@ -59,7 +59,6 @@
 		//saveObj.userid =  parseInt("0");
 		saveObj.userName = $('#username').val();		
 		saveObj.password = $('#newpassword').val();
-		console.log(saveObj);
 		
 		//add the user
 		$.ajax({
@@ -70,8 +69,7 @@
 			data: JSON.stringify(saveObj),
 			success: function() {
             	 //now login the new user if created
-            	 alert ('created ok'); 
-            	 console.log(saveObj);        	 
+            	 alert ('created ok');         	 
             	 $.ajax({
             	 	url: "/login",
 					method: "POST",		

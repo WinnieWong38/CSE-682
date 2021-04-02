@@ -58,7 +58,6 @@
 		saveObj.username = document.getElementById("username").innerText;		
 		saveObj.oldPassword = $('#oldpassword').val();
 		//saveObj.newPassword = $('#newpassword').val();		
-		console.log(saveObj);
 		
 		//make sure the current password is valid
 		$.ajax({			
