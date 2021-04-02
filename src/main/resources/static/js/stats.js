@@ -1,4 +1,4 @@
-var gaugeChart;
+var summaryChart;
 
 $(document).ready(function() {
 	init();
@@ -12,6 +12,7 @@ function init(){
     getUser();
 }
 
+//Creates the limit/category bar chart
 function createBarLimitCat(){
     $.ajax({
         url: "/api/limit/getLimitAndCategoriesAndExpenses"
@@ -46,11 +47,11 @@ function createBarLimitCat(){
     });
 }
 
+//creates the monthly trend chart
 function createMonthlyTrend(){
     $.ajax({
         url: "/api/expense/getTimeseriesChart",
     }).done(function(data){
-        console.error('data', data)
         var monthlyTrendChart = c3.generate({
             bindto: "#monthlyTrend",
             data: {
@@ -70,12 +71,12 @@ function createMonthlyTrend(){
     
 }
 
+//creates the monthly summary chart
 function createBar(){
     $.ajax({
         url: "/api/expense/getMonthlySummaryBar",
     }).done(function(data){
-        console.error('data2', data)
-        gaugeChart = c3.generate({
+        summaryChart = c3.generate({
             bindto: "#monthlySummaryBar",
             data: {
                 columns: [
@@ -87,10 +88,8 @@ function createBar(){
             },
             bar: {
                 width: {
-                    ratio: 1.0 // this makes bar width 50% of length between ticks
+                    ratio: 1.0 
                 }
-                // or
-                //width: 100 // this makes bar width 100px
             },
             axis: {
                 rotated: true
@@ -100,6 +99,8 @@ function createBar(){
     });
 }
 
+
+//creates the total by category table
 function createTable(){	
     $('#expensesByCategory thead tr').clone(true).appendTo( '#expensesByCategory thead' );
     $('#expensesByCategory thead tr:eq(1) th').each( function (i) {
