@@ -1,12 +1,13 @@
+	//function to check if the string is empty or blank
 	function isBlank(str) {
     	return (!str || /^\s*$/.test(str)); //check for empty and all blank
 	}
 		
-	//function to compare new and retype password boxes and alert if diffrent
+	//function to compare new and retype password boxes and alert if different
 	function checkMatch()
 	{		
-		var newPassword = $('#newpassword').val();
-		var retypePassword = $('#retypepassword').val();
+		var newPassword = $('#newpassword').val(); //get the new password
+		var retypePassword = $('#retypepassword').val(); //get the renetered password
 		
 		//check if either is blank
 		if(isBlank(newPassword) || isBlank(retypePassword)) return false;
@@ -19,7 +20,7 @@
 		}
 		else
 		{
-			document.getElementById("pwdmatch").style.display = "none";  //hid message			
+			document.getElementById("pwdmatch").style.display = "none";  //hide message			
 			return true;	
 		}
 	}
@@ -43,10 +44,12 @@
 	
 	}
 
+	//assume no error and set display
 	$(document).ready(function() {
 	document.getElementById("error").style.display = "none"; 
 	});
 	
+	//handle the user's click of the submit button
 	$(document).ready(function() {
 		
 		//change the user password when button is clicked
@@ -59,7 +62,7 @@
 		saveObj.oldPassword = $('#oldpassword').val();
 		//saveObj.newPassword = $('#newpassword').val();		
 		
-		//make sure the current password is valid
+		//make sure the current password is valid before changing
 		$.ajax({			
 			url: "/api/User/checkPwd",
 			method: "GET",
@@ -70,7 +73,7 @@
             	 if(data == true)
             	 {
             	 	//alert('matched');
-            	 	saveObj.newPassword = $('#newpassword').val(); //add new password
+            	 	saveObj.newPassword = $('#newpassword').val(); //add new password to object to send
             	 	//call change password api
             	 	$.ajax({
             	 		url: "/api/User/changePwd",
@@ -80,7 +83,7 @@
 						//data: JSON.stringify(saveObj),
 						data: saveObj,
 						success: function() {
-            	 			//alert('changed');			
+            	 			alert('changed');			
             	 			//need popup saying changed		
             			},
             			error: function() {    
@@ -106,7 +109,7 @@
 	
 	});	
 	
-	  //get the user name
+	//get the user name so the user can only attempt to change their password not someone else's
 	$(document).ready(function() {
 	$.ajax({
 			url: "/api/User/getUsername"

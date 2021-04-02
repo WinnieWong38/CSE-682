@@ -194,10 +194,11 @@ function createChart() {
 				method: "DELETE",
 				contentType: "application/json",
 				dataType: "json"
-			})
+			}).always(function(){
 				table.row( row ).remove().draw();
 				createChart();
 				modal.style.display = "none";
+			});
 		});
 		
 		// Get the <span> element that closes the modal
