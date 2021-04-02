@@ -14,6 +14,7 @@ function init(){
 	enableListeners();
 }
 
+//creates the income donut chart
 function createChart() {
 	var categoryArr = [];
 	$.ajax({
@@ -38,7 +39,7 @@ function createChart() {
     
     };
 
-	
+	//creates the income table
 	function createTable() {
 		
 		$('#example thead tr').clone(true).appendTo( '#example thead' );
@@ -85,7 +86,9 @@ function createChart() {
 		
 	}
 
+	//enable listeners for income page
 	function enableListeners(){
+		//add a new income
 		$('#submit').off('click').on('click', function(){
 			if(button){
 				var income = createIncome($('#description').val(), $('#income').val());
@@ -111,6 +114,7 @@ function createChart() {
 	});
 
 	$('#submit').addClass('disabled');
+	//validates the income form
 	$('.card-body').off('change input').on('change input', function(){
 		if(!isBlank($('#description').val()) && !isBlank($('#income').val())){
 			$('#submit').removeClass('disabled');
@@ -122,6 +126,7 @@ function createChart() {
 		}
 	});
 
+	//validates the income modal
 	$('#incomeModalForm').off('change input').on('change input', function(){
 		if(!isBlank($('#descriptionModal').val()) && !isBlank($('#incomeModal').val())){
 			$('#submitModal').removeClass('disabled');
@@ -133,12 +138,14 @@ function createChart() {
 		}
 	});
 
+	//validates that income is not negative 
 	$('#income').off('input').on('input', function(){
 		if($('#income').val() < 0){
 			$('#income').val(0);
 		}
 	});
 
+	//validates that income modal is not negative
 	$('#incomeModal').off('input').on('input', function(){
 		if($('#incomeModal').val() < 0){
 			$('#incomeModal').val(0);
@@ -147,6 +154,7 @@ function createChart() {
 	
 	} 
 
+	//creates modal to edit a income
 	function createModal(data, row){
 		// Get the modal
 		var modal = document.getElementById("myModal");
@@ -156,6 +164,7 @@ function createChart() {
 		$('#descriptionModal').val(data[1]); 
 		$('#incomeModal').val(data[2]);
 
+		//edit income
 		$('#submitModal').off('click').on('click', function(){
 			if(buttonModal){
 				var income = createIncome($('#descriptionModal').val(), $('#incomeModal').val());
@@ -178,6 +187,7 @@ function createChart() {
 		}
 		});
 
+		//delete income
 		$('#deleteModal').off('click').on('click', function(){
 			$.ajax({
 				url: "/api/income/deleteIncome/" + data[0],

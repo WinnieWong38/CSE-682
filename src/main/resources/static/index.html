@@ -10,11 +10,8 @@
     <link rel="stylesheet" href="css/lib/fontawesome-all.css">
     <link rel="stylesheet" href="css/lib/c3.css">
     <link rel="stylesheet" href="css/modal.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
-    <title>Budget App</title>
+	<link rel="stylesheet" href="css/lib/jquery.dataTables.min.css">
+    <title>Expenses</title>
 </head>
 
 <body>
@@ -110,7 +107,7 @@
                                 <div class="card">
                                     <h3 class="card-header">Current Month Expense Breakdown</h3>
                                     <div class="card-body">
-                                        <div id="c3chart_category" style="height: 250px;"></div>
+                                        <div id="c3chart_expense" style="height: 250px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +154,7 @@
                                     <h3 class="card-header">Expense Table</h3>
 									<div class="card-body">
 										<div>
-											<table id="example" class="display" style="width:100%">
+											<table id="expenseTable" class="display" style="width:100%">
 												<thead>
 													<tr>
                                                         <th style="font-weight:bold">id</th>
@@ -238,18 +235,15 @@
 
   
   </div>
-    
-    <script src="js/lib/vue.js"></script>
     <script src="js/lib/jquery-3.3.1.min.js"></script>
     <script src="js/lib/c3.min.js"></script>
     <script src="js/lib/d3-5.4.0.min.js"></script>
     <script src="js/lib/C3chartjs.js"></script>
-      <!-- slimscroll js -->
     <script src="js/lib/jquery.slimscroll.js"></script>
     <script src="js/lib/bootstrap.bundle.js"></script>  
     <script src="js/model.js"></script>
     <script src="js/expense.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="js/lib/jquery.dataTables.min.js"></script>
 </body>
  
 </html>
