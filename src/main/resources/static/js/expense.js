@@ -118,7 +118,11 @@ function createChart(){
 					"targets": [ 0 ],
 					"visible": false,
 					"searchable": false
-				}
+				},
+	            {
+	        		targets: 3,
+	        		className: 'dt-body-right'
+	    		}
 			]
 		});
 
@@ -134,7 +138,7 @@ function createChart(){
 					data[item].expenseid,
 					data[item].expense,
 					data[item].category.category,
-					data[item].cost,
+					data[item].cost.toFixed(2),
 					data[item].date,
 					data[item].isPaid ? "<i class='fas fa-check'></i>" : "",
 				]).draw( false );

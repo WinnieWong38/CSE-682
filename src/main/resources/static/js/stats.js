@@ -117,7 +117,14 @@ function createTable(){
     } );
     } );
     
-    var table = $('#expensesByCategory').DataTable({});
+    var table = $('#expensesByCategory').DataTable({
+		"columnDefs": [
+            {
+        		targets: 1,
+        		className: 'dt-body-right'
+    		}
+		]
+    });
     
     $.ajax({
         url: "/api/expense/getTotalCostCurrentMonthByCategory"
@@ -125,7 +132,7 @@ function createTable(){
         for(let item in data[0]){
             table.row.add([
                 data[0][item],
-                data[1][item]
+                data[1][item].toFixed(2)
             ]).draw( false );
         }
     });

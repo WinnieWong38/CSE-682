@@ -63,7 +63,11 @@ function createChart() {
                 "targets": [ 0 ],
                 "visible": false,
                 "searchable": false
-            }
+            },
+            {
+        		targets: 2,
+        		className: 'dt-body-right'
+    		}
         ]
 		});
 		
@@ -74,7 +78,7 @@ function createChart() {
 				table.row.add([
 					data[item].incomeid,
 					data[item].income,					
-					data[item].cost,
+					data[item].cost.toFixed(2),
 					"<input id='btnDelete' class='btn btn-success' width='15px' value='Delete' />"
 				]).draw( false );
 			}
